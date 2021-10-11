@@ -1,0 +1,16 @@
+<p>Login</p>
+<form>
+  <div>
+    <label>Email
+      <input [(ngModel)]="email" placeholder="Email" name="email" autofocus>
+    </label>
+  </div>
+  <div>
+    <label>Password
+      <input [(ngModel)]="password" placeholder="Password" name="password" autocomplete="off">
+    </label>
+  </div>
+  <button (click)="login()" type="submit">Login</button>
+</form>
+<button (click)="redirectToReview()">Go to review without login in</button>
+

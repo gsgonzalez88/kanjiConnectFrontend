@@ -1,0 +1,28 @@
+<div *ngIf="expression && fetchedDataState === 'loaded'">
+  <!--CARD FRONT-->
+  <div *ngIf="cardFlipState === 'front'">
+    <p>{{ expression.word }}</p>
+    <div>
+      <button (click)="showHint = true">Show hint</button>
+      <p *ngIf="showHint">{{ expression.exampleSentences[0].sentence }}</p>
+    </div>
+    <button (click)="cardFlipState = 'back'">Show reverse</button>
+  </div>
+  <!--CARD REVERSE-->
+  <div *ngIf="cardFlipState === 'back'">
+    <p>{{ expression.word }}</p>
+    <p>{{ expression.reading }}</p>
+    <p>Difficulty: {{ expression.difficulty | difficulty }}</p>
+    <button (click)="sendDifficulty('hard')">Hard</button>
+    <button (click)="sendDifficulty('OK')">OK</button>
+    <button (click)="sendDifficulty('easy')">Easy</button>
+  </div>
+</div>
+
+<div *ngIf="fetchedDataState === 'loading'">
+  Loading...
+</div>
+<div *ngIf="fetchedDataState === 'no data'">
+  No data
+</div>
+

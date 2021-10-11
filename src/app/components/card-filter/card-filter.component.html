@@ -1,0 +1,26 @@
+<form [formGroup]="filterForm">
+  <div>
+    <label>Type</label>
+    <select formControlName="type">
+      <option *ngFor="let type of types" value="{{ type.value }}">
+        {{ type.name }}
+      </option>
+    </select>
+  </div>
+  <div>
+    <label>Lesson</label>
+    <select formControlName="lesson">
+      <option *ngFor="let lesson of lessons" value="{{ lesson._id }}">
+        {{ lesson.topic }}
+      </option>
+    </select>
+  </div>
+  <div formGroupName="tags">
+    <p>Tags</p>
+    <label *ngFor="let tag of tags">
+      <input type="checkbox" formControlName="{{ tag.name }}">
+      {{ tag.name }}
+    </label>
+  </div>
+</form>
+<button (click)="sendFilter()">Filter</button>
