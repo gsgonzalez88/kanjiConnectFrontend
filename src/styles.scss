@@ -4,11 +4,17 @@
   --m: 768px;
   --l: 1280px;
   --xl: 1440px;
+  --main-color: #673ab7;
 }
 
 body{
   margin: 1em !important;
   box-sizing: border-box;
+}
+
+h1 {
+  color: var(--main-color);
+  font-size: 2.5em !important;
 }
 
 p, h1{
