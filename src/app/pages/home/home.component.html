@@ -1,16 +1,16 @@
-<p>Login</p>
-<form>
-  <div>
-    <label>Email
-      <input [(ngModel)]="email" placeholder="Email" name="email" autofocus>
-    </label>
-  </div>
-  <div>
-    <label>Password
-      <input [(ngModel)]="password" placeholder="Password" name="password" autocomplete="off">
-    </label>
-  </div>
-  <button (click)="login()" type="submit">Login</button>
-</form>
-<button (click)="redirectToReview()">Go to review without login in</button>
+<div class="container">
+  <form class="m-m">
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput [(ngModel)]="email" name="email" autofocus>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input matInput [(ngModel)]="password" name="password" autocomplete="off">
+    </mat-form-field>
+    <app-main-button (click)="login()" type="submit" text="Login"></app-main-button>
+  </form>
+  <app-accent-button (click)="redirectToReview()" text="Enter without login in"></app-accent-button>
+</div>
+
 

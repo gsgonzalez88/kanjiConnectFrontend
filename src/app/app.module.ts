@@ -2,6 +2,8 @@ import { AuthService } from './services/auth.service';
 import { HttpClient, HttpClientModule, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,6 +24,10 @@ import { DifficultyPipe } from './pipes/difficulty.pipe';
 import { CardFilterComponent } from './components/card-filter/card-filter.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './components/header/header.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MainButtonComponent } from './elements/buttons/main-button/main-button.component';
+import { AccentButtonComponent } from './elements/buttons/accent-button/accent-button.component';
+import { WarnButtonComponent } from './elements/buttons/warn-button/warn-button.component';
 
 @NgModule({
   declarations: [
@@ -39,14 +45,20 @@ import { HeaderComponent } from './components/header/header.component';
     ReviewCounterComponent,
     DifficultyPipe,
     CardFilterComponent,
-    HeaderComponent
+    HeaderComponent,
+    MainButtonComponent,
+    AccentButtonComponent,
+    WarnButtonComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatInputModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: TimeInterceptor, multi: true
