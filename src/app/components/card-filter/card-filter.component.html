@@ -1,26 +1,45 @@
-<form [formGroup]="filterForm">
-  <div>
-    <label>Type</label>
-    <select formControlName="type">
-      <option *ngFor="let type of types" value="{{ type.value }}">
-        {{ type.name }}
-      </option>
-    </select>
-  </div>
-  <div>
-    <label>Lesson</label>
-    <select formControlName="lesson">
-      <option *ngFor="let lesson of lessons" value="{{ lesson._id }}">
-        {{ lesson.topic }}
-      </option>
-    </select>
-  </div>
-  <div formGroupName="tags">
-    <p>Tags</p>
-    <label *ngFor="let tag of tags">
-      <input type="checkbox" formControlName="{{ tag.name }}">
-      {{ tag.name }}
-    </label>
-  </div>
-</form>
-<app-main-button (click)="sendFilter()" text="Filter"></app-main-button>
+<mat-expansion-panel (opened)="panelOpenState = true"
+                    (closed)="panelOpenState = false"
+                    [expanded]="panelOpenState">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Filter cards to review
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <form [formGroup]="filterForm" class="m-m-td">
+    <mat-form-field>
+      <mat-label>Type</mat-label>
+      <mat-select formControlName="type">
+        <mat-option *ngFor="let type of types" value="{{ type.value }}">
+          {{ type.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Lesson</mat-label>
+      <mat-select formControlName="lesson">
+        <mat-option *ngFor="let lesson of lessons" value="{{ lesson._id }}">
+          {{ lesson.topic }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <section formGroupName="tags" class="m-s-td">
+      <span>Tags</span>
+      <ul>
+        <li *ngFor="let tag of tags">
+          <mat-checkbox formControlName="{{ tag.name }}">
+            {{ tag.name }}
+          </mat-checkbox>
+        </li>
+      </ul>
+    </section>
+    <div>
+      <app-main-button (click)="sendFilter()" text="Filter"></app-main-button>
+    </div>
+  </form>
+</mat-expansion-panel>
+
+
+
+
+

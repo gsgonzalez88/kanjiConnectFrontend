@@ -15,9 +15,10 @@ export class CardFilterComponent implements OnInit, OnChanges {
   @Input() lessons: Lesson[] = [];
 
   public filterForm: FormGroup;
+  public panelOpenState: boolean = true;
   public types = [
-    {name: 'expressions', value: 'expressions'},
-    {name: 'kanjis', value: 'kanjis'}
+    {name: 'Expressions', value: 'expressions'},
+    {name: 'Kanjis', value: 'kanjis'}
   ]
 
   constructor(private formBuilder: FormBuilder) {
@@ -67,6 +68,7 @@ export class CardFilterComponent implements OnInit, OnChanges {
 
   sendFilter() {
     const filter = this.generateFilter();
+    this.panelOpenState = false;
     this.filter.emit(filter);
   }
 

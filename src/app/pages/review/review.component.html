@@ -1,15 +1,20 @@
-<app-card-filter
-  [tags]="tags"
-  [lessons]="lessons"
-  (filter)="setFilter($event)">
-</app-card-filter>
-<app-review-counter
-  [total]="total"
-  [currentIndex]="currentIndex"
-  [fetchedDataState]="fetchedDataState">
-</app-review-counter>
-<app-expression-card
-  [expression]="currentExpression"
-  (difficulty)="setDifficulty($event)"
-  [fetchedDataState]="fetchedDataState">
-</app-expression-card>
+<div class="m-m-td">
+  <app-card-filter
+    [tags]="tags"
+    [lessons]="lessons"
+    (filter)="setFilter($event)">
+  </app-card-filter>
+</div>
+<div class="card-container media-width m-m-td">
+  <app-review-counter
+    [total]="total"
+    [currentIndex]="currentIndex"
+    [fetchedDataState]="fetchedDataState">
+  </app-review-counter>
+  <app-expression-card
+    [expression]="currentExpression"
+    (difficulty)="setDifficulty($event)"
+    [fetchedDataState]="fetchedDataState">
+  </app-expression-card>
+</div>
+
