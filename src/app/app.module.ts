@@ -35,6 +35,8 @@ import { WarnButtonComponent } from './elements/buttons/warn-button/warn-button.
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { UploadComponent } from './pages/upload/upload.component';
 import { ExpressionFormComponent } from './components/expression-form/expression-form.component';
+import { GenericInputComponent } from './components/generic-input/generic-input.component';
+import { AdDirective } from './directives/ad.directive';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,9 @@ import { ExpressionFormComponent } from './components/expression-form/expression
     WarnButtonComponent,
     DashboardComponent,
     UploadComponent,
-    ExpressionFormComponent
+    ExpressionFormComponent,
+    GenericInputComponent,
+    AdDirective
   ],
   imports: [
     BrowserModule,

@@ -29,7 +29,9 @@
       <mat-label>English Meaning</mat-label>
       <input matInput formControlName="englishMeaning1">
     </mat-form-field>
+
   </section>
+
   <!--JAPANESE MEANING-->
   <section formGroupName="japaneseMeaning">
     <mat-form-field>
@@ -56,3 +58,5 @@
   </section>
   <app-main-button (click)="sendData()" text="Add expression"></app-main-button>
 </form>
+<button (click)="createInput()">Create Input</button>
+<ng-template adHost></ng-template>

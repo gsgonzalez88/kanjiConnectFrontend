@@ -1,9 +1,11 @@
+import { GenericInputService } from './../../services/generic-input.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, ViewChild, ComponentFactoryResolver } from '@angular/core';
 
 import { ExternalExpressionInitializer, FormExpressionDto } from './../../models/expression.model';
 import { ExpressionsService } from 'src/app/services/expressions.service';
 import { ExternalExpression } from 'src/app/models/expression.model';
+import { AdDirective } from 'src/app/directives/ad.directive';
 
 @Component({
   selector: 'app-expression-form',
@@ -11,6 +13,7 @@ import { ExternalExpression } from 'src/app/models/expression.model';
   styleUrls: ['./expression-form.component.scss']
 })
 export class ExpressionFormComponent implements OnInit {
+  @ViewChild(AdDirective, {static: true}) adHost!: AdDirective;
   public form: FormGroup;
   public externalExpressions: ExternalExpression[] = [];
   public currentExternalExpression: ExternalExpression = new ExternalExpressionInitializer();
@@ -19,7 +22,9 @@ export class ExpressionFormComponent implements OnInit {
   @Output() formData = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder,
-              private expressionsService: ExpressionsService) {
+              private expressionsService: ExpressionsService,
+              private genericInputService: GenericInputService,
+              private componentFactoryResolver: ComponentFactoryResolver) {
     this.form = this.formBuilder.group({
       word: ['', Validators.required],
       reading: ['', Validators.required],
@@ -42,6 +47,18 @@ export class ExpressionFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+  }
+
+  createInput() {
+    const adItem = this.genericInputService.getAds();
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(adItem.component);
+
+    const viewContainerRef = this.adHost.viewContainerRef;
+    viewContainerRef.clear();
+
+    const componentRef = viewContainerRef.createComponent<any>(componentFactory);
+    componentRef.instance.data = adItem.data;
   }
 
   autocomplete() {
