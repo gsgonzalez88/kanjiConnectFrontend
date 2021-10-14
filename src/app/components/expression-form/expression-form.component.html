@@ -1,0 +1,58 @@
+<form [formGroup]="form">
+  <div>
+    <mat-form-field>
+      <mat-label>Expression</mat-label>
+      <input matInput formControlName="word">
+    </mat-form-field>
+    <div class="m-s-rl">
+      <app-main-button text="Autocomplete"
+                      (click)="autocomplete()"
+                      [disabled]="!form.get('word')?.valid">
+      </app-main-button>
+    </div>
+  </div>
+  <mat-form-field>
+    <mat-label>Reading</mat-label>
+    <input matInput formControlName="reading">
+  </mat-form-field>
+  <!--ENGLISH MEANING-->
+  <section formGroupName="englishMeaning">
+    <!--<div *ngFor="let meaning of currentExternalExpression.englishMeaning; let i = index">
+      <mat-form-field>
+        <mat-label>English Meaning {{ i === 0 ? '' : i + 1 }}</mat-label>
+        <input matInput formControlName="{{ 'englishMeaning' + (i + 1) }}">
+      </mat-form-field>
+      <button (click)="deleteFormControl('englishMeaning', 'englishMeaning' + (i + 1))"
+              *ngIf="showDeleteEnglishMeaningButton">Delete</button>
+    </div>-->
+    <mat-form-field>
+      <mat-label>English Meaning</mat-label>
+      <input matInput formControlName="englishMeaning1">
+    </mat-form-field>
+  </section>
+  <!--JAPANESE MEANING-->
+  <section formGroupName="japaneseMeaning">
+    <mat-form-field>
+      <mat-label>Japanese Meaning</mat-label>
+      <input matInput formControlName="japaneseMeaning1">
+    </mat-form-field>
+  </section>
+  <!--EXAMPLE SENTENCES-->
+  <section formGroupName="exampleSentences">
+    <section formGroupName="exampleSentence1">
+      <mat-form-field>
+        <mat-label>Sentence</mat-label>
+        <input matInput formControlName="sentence1">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Source</mat-label>
+        <input matInput formControlName="source1">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Link</mat-label>
+        <input matInput formControlName="link1">
+      </mat-form-field>
+    </section>
+  </section>
+  <app-main-button (click)="sendData()" text="Add expression"></app-main-button>
+</form>

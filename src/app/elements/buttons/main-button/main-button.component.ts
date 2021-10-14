@@ -6,6 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class MainButtonComponent implements OnInit {
   @Input() text = 'Search';
+  @Input() disabled: boolean = false;
 
   constructor() { }
 

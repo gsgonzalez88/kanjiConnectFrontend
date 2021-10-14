@@ -9,6 +9,7 @@ import { ReviewComponent } from './pages/review/review.component';
 import { ExpressionsComponent } from './pages/expressions/expressions.component';
 import { KanjisComponent } from './pages/kanjis/kanjis.component';
 import { SearchComponent } from './pages/search/search.component';
+import { UploadComponent } from './pages/upload/upload.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,9 @@ const routes: Routes = [
   }, {
     path: 'review',
     component: ReviewComponent
+  }, {
+    path: 'upload',
+    component: UploadComponent
   }
 ];
 

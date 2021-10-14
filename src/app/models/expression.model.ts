@@ -16,6 +16,25 @@ export interface Expression {
   _id: string;
 }
 
+export interface ExternalExpression {
+  word: string,
+  reading: string,
+  englishMeaning: string[],
+  jlpt: number | null,
+  transitivity: 'transitive' | 'intransitive' | null;
+}
+
+export class ExternalExpressionInitializer {
+  word = ''
+  reading = ''
+  englishMeaning = ['']
+  jlpt = null
+  transitivity = null
+}
+
+export interface FormExpressionDto extends Omit<Expression,
+  'user' | 'kanjis' | 'difficulty' | 'created' | 'updated' | '_id'> {}
+
 export interface CreateExpressionDto extends Omit<Expression, '_id'> {}
 
 export interface UpdateExpressionDto extends Partial<CreateExpressionDto> {}

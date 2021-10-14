@@ -32,6 +32,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainButtonComponent } from './elements/buttons/main-button/main-button.component';
 import { AccentButtonComponent } from './elements/buttons/accent-button/accent-button.component';
 import { WarnButtonComponent } from './elements/buttons/warn-button/warn-button.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { UploadComponent } from './pages/upload/upload.component';
+import { ExpressionFormComponent } from './components/expression-form/expression-form.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +55,10 @@ import { WarnButtonComponent } from './elements/buttons/warn-button/warn-button.
     HeaderComponent,
     MainButtonComponent,
     AccentButtonComponent,
-    WarnButtonComponent
+    WarnButtonComponent,
+    DashboardComponent,
+    UploadComponent,
+    ExpressionFormComponent
   ],
   imports: [
     BrowserModule,

@@ -6,6 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class AccentButtonComponent implements OnInit {
   @Input() text = 'Cancel';
+  @Input() disabled: boolean = false;
 
   constructor() { }
 
