@@ -50,26 +50,35 @@
     </ng-container>
   </section>
   <!--EXAMPLE SENTENCES-->
-  <section formGroupName="exampleSentences">
-    <section formGroupName="exampleSentence1">
-      <mat-form-field>
-        <mat-label>Sentence</mat-label>
-        <input matInput formControlName="sentence">
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Source</mat-label>
-        <input matInput formControlName="source">
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Link</mat-label>
-        <input matInput formControlName="link">
-      </mat-form-field>
-    </section>
+  <section formArrayName="exampleSentences">
+    <ng-container *ngFor="let sentence of exampleSentences.controls; let i = index">
+      <div formGroupName="{{ i }}">
+        <mat-form-field>
+          <mat-label>Example Sentence</mat-label>
+          <input matInput formControlName="sentence" id="{{'name' + i}}" name="sentence">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Source</mat-label>
+          <input matInput formControlName="source" id="{{'name' + i}}" name="source">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Link</mat-label>
+          <input matInput formControlName="link" id="{{'name' + i}}" name="link">
+        </mat-form-field>
+        <app-main-button (click)="addToFormArray('exampleSentences')" text="+"
+                          [disabled]="exampleSentences.controls[i].get('sentence')?.value.length === 0 ||
+                          exampleSentences.length !== i + 1">
+        </app-main-button>
+        <app-warn-button (click)="deleteFromFormArray('exampleSentences', i)" text="X"
+                          [disabled]="exampleSentences.length === 1">
+        </app-warn-button>
+      </div>
+    </ng-container>
   </section>
   <mat-form-field>
     <mat-label>JLPT</mat-label>
     <mat-select formControlName="jlpt">
-      <mat-option *ngFor="let jlpt of jlptValues" value="{{ jlpt.value }}">
+      <mat-option *ngFor="let jlpt of jlptValues" [value]="jlpt.value">
         {{ jlpt.name }}
       </mat-option>
     </mat-select>
@@ -77,7 +86,7 @@
   <mat-form-field>
     <mat-label>Transitivity</mat-label>
     <mat-select formControlName="transitivity">
-      <mat-option *ngFor="let transitivity of transitivityValues" value="{{ transitivity.value }}">
+      <mat-option *ngFor="let transitivity of transitivityValues" [value]="transitivity.value">
         {{ transitivity.name }}
       </mat-option>
     </mat-select>

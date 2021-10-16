@@ -35,13 +35,13 @@ export class ExpressionFormComponent implements OnInit {
       japaneseMeaning: this.formBuilder.array([
         new FormGroup({ meaning: new FormControl('') })
       ]),
-      exampleSentences: this.formBuilder.group({
-        exampleSentence1: this.formBuilder.group({
-          sentence: [''],
-          source: [''],
-          link: ['']
+      exampleSentences: this.formBuilder.array([
+        new FormGroup({
+          sentence: new FormControl(''),
+          source: new FormControl(''),
+          link: new FormControl('')
         })
-      }),
+      ]),
       jlpt: [null],
       transitivity: [null]
     })
@@ -58,9 +58,21 @@ export class ExpressionFormComponent implements OnInit {
     return this.form.controls['japaneseMeaning'] as FormArray;
   }
 
+  get exampleSentences(): FormArray {
+    return this.form.controls['exampleSentences'] as FormArray;
+  }
+
   addToFormArray(formArray: string, content?: string) {
     const form = this.form.controls[formArray] as FormArray;
-    form.push(new FormGroup({ meaning: new FormControl( content ? content : '' ) }))
+    if (formArray === 'exampleSentences') {
+      form.push(new FormGroup({
+        sentence: new FormControl(''),
+          source: new FormControl(''),
+          link: new FormControl('')
+      }))
+    } else {
+      form.push(new FormGroup({ meaning: new FormControl( content ? content : '' ) }))
+    }
   }
 
   deleteFromFormArray(formArray: string, index: any) {
@@ -89,7 +101,7 @@ export class ExpressionFormComponent implements OnInit {
           })
           this.cleanEmptyValuesFromFormArray('englishMeaning');
           this.addToFormArray('englishMeaning');
-          this.form.get('jlpt')?.setValue(this.currentExternalExpression.jlpt);
+          this.form.get('jlpt')?.setValue(this.currentExternalExpression.jlpt)
           this.form.get('transitivity')?.setValue(this.currentExternalExpression.transitivity);
         }
       }, err => {
@@ -100,12 +112,12 @@ export class ExpressionFormComponent implements OnInit {
   sendData() {
     const formExpression: FormExpressionDto = {
       ...this.form.value,
-      englishMeaning: Object.values(this.form.get('englishMeaning')?.value)
-        .filter(e => e !== null && e !== ''),
-      japaneseMeaning: Object.values(this.form.get('japaneseMeaning')?.value)
-        .filter(e => e !== null && e !== ''),
-      exampleSentences: Object.values(this.form.get('exampleSentences')?.value)
-        .filter(e => e !== null && e !== '')
+      englishMeaning: this.englishMeaning.getRawValue()
+        .filter(e => e.meaning !== null && e.meaning.length !== 0).map(e => e.meaning),
+      japaneseMeaning: this.japaneseMeaning.getRawValue()
+        .filter(e => e.meaning !== null && e.meaning.length !== 0).map(e => e.meaning),
+      exampleSentences: this.exampleSentences.getRawValue()
+        .filter(e => e.sentence !== null && e.sentence.length !== 0)
     }
     this.formData.emit(formExpression);
   }
