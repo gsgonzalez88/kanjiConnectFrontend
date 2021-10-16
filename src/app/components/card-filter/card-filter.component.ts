@@ -15,7 +15,6 @@ import { SelectValuesService } from 'src/app/services/select-values.service';
 export class CardFilterComponent implements OnInit, OnChanges {
   @Output() filter = new EventEmitter();
   @Input() tags: Tag[] = [];
-  @Input() lessons: Lesson[] = [];
 
   public filterForm: FormGroup;
   public panelOpenState: boolean = true;
@@ -36,11 +35,7 @@ export class CardFilterComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.lessons && changes.lessons.currentValue.length > 0) {
-      const emptyValue = { topic: 'All lessons', _id: '' , user: '', date: new Date(), link: ''};
-      this.lessons.unshift(emptyValue);
-      this.filterForm.get('lesson')?.setValue(this.lessons[0]._id);
-    } else if (changes.tags && changes.tags.currentValue.length > 0) {
+    if (changes.tags && changes.tags.currentValue.length > 0) {
       const tagsForm = this.filterForm.get('tags') as FormGroup;
       this.tags.forEach(tag => {
         tagsForm.addControl(tag.name, new FormControl(false))

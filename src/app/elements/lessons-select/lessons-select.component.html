@@ -1,0 +1,12 @@
+
+<form [formGroup]="form">
+  <mat-form-field>
+    <mat-label>Lesson</mat-label>
+    <mat-select formControlName="lesson" (selectionChange)="onSelectionChange($event)">
+      <mat-option *ngFor="let lesson of lessons$ | async" [value]="lesson._id">
+        {{ lesson.topic }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>
+

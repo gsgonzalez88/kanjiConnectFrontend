@@ -2,7 +2,6 @@ import { Difficulty } from './../../models/custom-types.model';
 import { Component, OnInit } from '@angular/core';
 import { ExpressionsService } from 'src/app/services/expressions.service';
 import { Expression, ExpressionInitializer, FilterExpressionsDto, UpdateExpressionDto } from 'src/app/models/expression.model';
-import { LessonsService } from 'src/app/services/lessons.service';
 import { TagsService } from './../../services/tags.service';
 import { Tag } from 'src/app/models/tag.model';
 import { Lesson } from 'src/app/models/lesson.model';
@@ -25,23 +24,15 @@ export class ReviewComponent implements OnInit {
   private user = '61478fb9b2cfde16186509b5';
 
   constructor(private expressionsService: ExpressionsService,
-              private tagsService: TagsService,
-              private lessonsService: LessonsService) { }
+              private tagsService: TagsService) { }
 
   ngOnInit(): void {
     this.getTags();
-    this.getLessons();
   }
 
   getTags() {
     this.tagsService.getTagsByUser(this.user).subscribe(
       res => this.tags = res
-    )
-  }
-
-  getLessons() {
-    this.lessonsService.getLessonsByUser(this.user).subscribe(
-      res => this.lessons = res
     )
   }
 
@@ -63,7 +54,7 @@ export class ReviewComponent implements OnInit {
   }
 
   setFilter(event: CardFilter) {
-    if (event.type === 'expressions') {
+    if (event.type === 'expression') {
       delete event.type;
       this.getExpressions(event)
     }

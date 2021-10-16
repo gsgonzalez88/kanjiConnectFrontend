@@ -15,14 +15,7 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field>
-      <mat-label>Lesson</mat-label>
-      <mat-select formControlName="lesson">
-        <mat-option *ngFor="let lesson of lessons" value="{{ lesson._id }}">
-          {{ lesson.topic }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <app-lessons-select formControlName="lesson"></app-lessons-select>
     <section formGroupName="tags" class="m-s-td">
       <span>Tags</span>
       <ul>

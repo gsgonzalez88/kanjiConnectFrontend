@@ -43,9 +43,11 @@ export class ExpressionFormComponent implements OnInit {
         })
       ]),
       jlpt: [null],
-      transitivity: [null]
+      transitivity: [null],
+      lesson: ['']
     })
   }
+
 
   ngOnInit(): void {
   }

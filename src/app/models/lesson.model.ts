@@ -5,3 +5,11 @@ export interface Lesson {
   link: string;
   _id: string;
 }
+
+export const EmptyLesson: Lesson = {
+  user:  '',
+  date: new Date,
+  topic: '',
+  link: '',
+  _id: '',
+}
