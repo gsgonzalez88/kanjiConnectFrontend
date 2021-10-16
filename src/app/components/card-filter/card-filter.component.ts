@@ -1,8 +1,11 @@
+import { Transitivity } from './../../models/custom-types.model';
 import { Component, OnInit, Output, EventEmitter, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Tag } from 'src/app/models/tag.model';
 import { Lesson } from 'src/app/models/lesson.model';
 import { CardFilter } from 'src/app/models/card-filter.model';
+import { DataType } from 'src/app/models/custom-types.model';
+import { SelectValuesService } from 'src/app/services/select-values.service';
 
 @Component({
   selector: 'app-card-filter',
@@ -16,12 +19,11 @@ export class CardFilterComponent implements OnInit, OnChanges {
 
   public filterForm: FormGroup;
   public panelOpenState: boolean = true;
-  public types = [
-    {name: 'Expressions', value: 'expressions'},
-    {name: 'Kanjis', value: 'kanjis'}
-  ]
+  public types: { name: string, value: DataType }[] = [{ name: '', value: 'expression'}];
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+              private selectValuesService: SelectValuesService) {
+    this.types = this.selectValuesService.getDataType();
     this.filterForm = this.formBuilder.group({
       type: [this.types[0].value],
       lesson: [''],

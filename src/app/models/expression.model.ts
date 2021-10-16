@@ -1,3 +1,4 @@
+import { Difficulty, Jlpt, Transitivity } from './custom-types.model';
 import { ExampleSentence } from "./example-sentence.model";
 
 export interface Expression {
@@ -10,7 +11,9 @@ export interface Expression {
   lesson: string;
   user: string;
   kanjis: string[];
-  difficulty: number;
+  jlpt: Jlpt;
+  transitivity: Transitivity;
+  difficulty: Difficulty;
   created: Date;
   updated: Date;
   _id: string;
@@ -20,14 +23,14 @@ export interface ExternalExpression {
   word: string,
   reading: string,
   englishMeaning: string[],
-  jlpt: number | null,
-  transitivity: 'transitive' | 'intransitive' | null;
+  jlpt: Jlpt,
+  transitivity: Transitivity
 }
 
 export class ExternalExpressionInitializer {
   word = ''
   reading = ''
-  englishMeaning = ['']
+  englishMeaning = []
   jlpt = null
   transitivity = null
 }
@@ -43,7 +46,7 @@ export interface FilterExpressionsDto {
   user: string;
   tags?: string[];
   lesson?: string;
-  difficulty?: number;
+  difficulty?: Difficulty;
 }
 
 export class ExpressionInitializer {
@@ -61,7 +64,9 @@ export class ExpressionInitializer {
   lesson = ''
   user = ''
   kanjis = ['']
-  difficulty = 5
+  difficulty: Difficulty = 5
+  jlpt = null
+  transitivity = null
   created = new Date()
   updated = new Date()
   _id = ''

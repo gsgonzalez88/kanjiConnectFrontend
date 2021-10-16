@@ -1,9 +1,11 @@
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { Jlpt, Transitivity } from './../../models/custom-types.model';
+import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 import { ExternalExpressionInitializer, FormExpressionDto } from './../../models/expression.model';
 import { ExpressionsService } from 'src/app/services/expressions.service';
 import { ExternalExpression } from 'src/app/models/expression.model';
+import { SelectValuesService } from 'src/app/services/select-values.service';
 
 @Component({
   selector: 'app-expression-form',
@@ -14,34 +16,65 @@ export class ExpressionFormComponent implements OnInit {
   public form: FormGroup;
   public externalExpressions: ExternalExpression[] = [];
   public currentExternalExpression: ExternalExpression = new ExternalExpressionInitializer();
-  public showDeleteEnglishMeaningButton: boolean = false;
+  public jlptValues: { name: number | '', value: Jlpt }[] = [{ name: '', value: null }];
+  public transitivityValues: { name: string, value: Transitivity }[] = [{ name: '', value: null }];
 
   @Output() formData = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder,
-              private expressionsService: ExpressionsService) {
+              private expressionsService: ExpressionsService,
+              private selectValuesService: SelectValuesService) {
+    this.jlptValues = this.selectValuesService.getJlpt();
+    this.transitivityValues = this.selectValuesService.getTransitivity();
     this.form = this.formBuilder.group({
       word: ['', Validators.required],
       reading: ['', Validators.required],
-      englishMeaning: this.formBuilder.group({
-        englishMeaning1: ['']
-      }),
-      japaneseMeaning: this.formBuilder.group({
-        japaneseMeaning1: ['']
-      }),
+      englishMeaning: this.formBuilder.array([
+        new FormGroup({ meaning: new FormControl('') })
+      ]),
+      japaneseMeaning: this.formBuilder.array([
+        new FormGroup({ meaning: new FormControl('') })
+      ]),
       exampleSentences: this.formBuilder.group({
         exampleSentence1: this.formBuilder.group({
-          sentence1: [''],
-          source1: [''],
-          link1: ['']
+          sentence: [''],
+          source: [''],
+          link: ['']
         })
       }),
-      tags: [''],
-      lesson: ['']
+      jlpt: [null],
+      transitivity: [null]
     })
   }
 
   ngOnInit(): void {
+  }
+
+  get englishMeaning(): FormArray {
+    return this.form.controls['englishMeaning'] as FormArray;
+  }
+
+  get japaneseMeaning(): FormArray {
+    return this.form.controls['japaneseMeaning'] as FormArray;
+  }
+
+  addToFormArray(formArray: string, content?: string) {
+    const form = this.form.controls[formArray] as FormArray;
+    form.push(new FormGroup({ meaning: new FormControl( content ? content : '' ) }))
+  }
+
+  deleteFromFormArray(formArray: string, index: any) {
+    const form = this.form.controls[formArray] as FormArray;
+    form.removeAt(index);
+  }
+
+  cleanEmptyValuesFromFormArray(formArray: string) {
+    const form = this.form.controls[formArray] as FormArray;
+    form.getRawValue().forEach((value, i) => {
+      if (value.meaning === null || value.meaning.length === 0) {
+        this.deleteFromFormArray(formArray, i);
+      }
+    })
   }
 
   autocomplete() {
@@ -51,31 +84,29 @@ export class ExpressionFormComponent implements OnInit {
         if (this.externalExpressions.length > 0) {
           this.currentExternalExpression = this.externalExpressions[0];
           this.form.get('reading')?.setValue(this.currentExternalExpression.reading);
-          const englishMeaningForm = this.form.get('englishMeaning') as FormGroup;
-          this.showDeleteEnglishMeaningButton = this.currentExternalExpression.englishMeaning.length > 1;
           this.currentExternalExpression.englishMeaning.forEach((meaning, i) => {
-            if (i === 0) {
-              englishMeaningForm.get('englishMeaning1')?.setValue(meaning);
-            } else {
-              englishMeaningForm.addControl('englishMeaning' + (i+1), new FormControl(meaning));
-            }
+            this.addToFormArray('englishMeaning', meaning)
           })
+          this.cleanEmptyValuesFromFormArray('englishMeaning');
+          this.addToFormArray('englishMeaning');
+          this.form.get('jlpt')?.setValue(this.currentExternalExpression.jlpt);
+          this.form.get('transitivity')?.setValue(this.currentExternalExpression.transitivity);
         }
       }, err => {
         this.externalExpressions = [];
       })
   }
 
-  deleteFormControl(formGroupName: string, formControlName: string) {
-    const formGroup = this.form.get(formGroupName) as FormGroup;
-    formGroup.removeControl(formControlName);
-    if (formGroupName === 'englishMeaning' && Object.keys(formGroup.controls).length === 1) {
-      this.showDeleteEnglishMeaningButton = false;
-    }
-  }
-
   sendData() {
-    const formExpression: FormExpressionDto = this.form.value;
+    const formExpression: FormExpressionDto = {
+      ...this.form.value,
+      englishMeaning: Object.values(this.form.get('englishMeaning')?.value)
+        .filter(e => e !== null && e !== ''),
+      japaneseMeaning: Object.values(this.form.get('japaneseMeaning')?.value)
+        .filter(e => e !== null && e !== ''),
+      exampleSentences: Object.values(this.form.get('exampleSentences')?.value)
+        .filter(e => e !== null && e !== '')
+    }
     this.formData.emit(formExpression);
   }
 }

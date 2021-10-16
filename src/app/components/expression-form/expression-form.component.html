@@ -4,55 +4,85 @@
       <mat-label>Expression</mat-label>
       <input matInput formControlName="word">
     </mat-form-field>
-    <div class="m-s-rl">
-      <app-main-button text="Autocomplete"
-                      (click)="autocomplete()"
-                      [disabled]="!form.get('word')?.valid">
-      </app-main-button>
-    </div>
+    <app-main-button text="Autocomplete"
+                    (click)="autocomplete()"
+                    [disabled]="!form.get('word')?.valid">
+    </app-main-button>
   </div>
   <mat-form-field>
     <mat-label>Reading</mat-label>
     <input matInput formControlName="reading">
   </mat-form-field>
   <!--ENGLISH MEANING-->
-  <section formGroupName="englishMeaning">
-    <!--<div *ngFor="let meaning of currentExternalExpression.englishMeaning; let i = index">
-      <mat-form-field>
-        <mat-label>English Meaning {{ i === 0 ? '' : i + 1 }}</mat-label>
-        <input matInput formControlName="{{ 'englishMeaning' + (i + 1) }}">
-      </mat-form-field>
-      <button (click)="deleteFormControl('englishMeaning', 'englishMeaning' + (i + 1))"
-              *ngIf="showDeleteEnglishMeaningButton">Delete</button>
-    </div>-->
-    <mat-form-field>
-      <mat-label>English Meaning</mat-label>
-      <input matInput formControlName="englishMeaning1">
-    </mat-form-field>
+  <section formArrayName="englishMeaning">
+    <ng-container *ngFor="let meaning of englishMeaning.controls; let i = index">
+      <div formGroupName="{{ i }}">
+        <mat-form-field>
+          <mat-label>English Meaning</mat-label>
+          <input matInput formControlName="meaning" id="{{'name' + i}}" name="meaning">
+        </mat-form-field>
+        <app-main-button (click)="addToFormArray('englishMeaning')" text="+"
+                          [disabled]="englishMeaning.controls[i].get('meaning')?.value.length === 0 ||
+                                      englishMeaning.length !== i + 1">
+        </app-main-button>
+        <app-warn-button (click)="deleteFromFormArray('englishMeaning', i)" text="X"
+                          [disabled]="englishMeaning.length === 1">
+        </app-warn-button>
+      </div>
+    </ng-container>
   </section>
   <!--JAPANESE MEANING-->
-  <section formGroupName="japaneseMeaning">
-    <mat-form-field>
-      <mat-label>Japanese Meaning</mat-label>
-      <input matInput formControlName="japaneseMeaning1">
-    </mat-form-field>
+  <section formArrayName="japaneseMeaning">
+    <ng-container *ngFor="let meaning of japaneseMeaning.controls; let i = index">
+      <div formGroupName="{{ i }}">
+        <mat-form-field>
+          <mat-label>Japanese Meaning</mat-label>
+          <input matInput formControlName="meaning" id="{{'name' + i}}" name="meaning">
+        </mat-form-field>
+        <app-main-button (click)="addToFormArray('japaneseMeaning')" text="+"
+                          [disabled]="japaneseMeaning.controls[i].get('meaning')?.value.length === 0 ||
+                          japaneseMeaning.length !== i + 1">
+        </app-main-button>
+        <app-warn-button (click)="deleteFromFormArray('japaneseMeaning', i)" text="X"
+                          [disabled]="japaneseMeaning.length === 1">
+        </app-warn-button>
+      </div>
+    </ng-container>
   </section>
   <!--EXAMPLE SENTENCES-->
   <section formGroupName="exampleSentences">
     <section formGroupName="exampleSentence1">
       <mat-form-field>
         <mat-label>Sentence</mat-label>
-        <input matInput formControlName="sentence1">
+        <input matInput formControlName="sentence">
       </mat-form-field>
       <mat-form-field>
         <mat-label>Source</mat-label>
-        <input matInput formControlName="source1">
+        <input matInput formControlName="source">
       </mat-form-field>
       <mat-form-field>
         <mat-label>Link</mat-label>
-        <input matInput formControlName="link1">
+        <input matInput formControlName="link">
       </mat-form-field>
     </section>
   </section>
-  <app-main-button (click)="sendData()" text="Add expression"></app-main-button>
+  <mat-form-field>
+    <mat-label>JLPT</mat-label>
+    <mat-select formControlName="jlpt">
+      <mat-option *ngFor="let jlpt of jlptValues" value="{{ jlpt.value }}">
+        {{ jlpt.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Transitivity</mat-label>
+    <mat-select formControlName="transitivity">
+      <mat-option *ngFor="let transitivity of transitivityValues" value="{{ transitivity.value }}">
+        {{ transitivity.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div class="m-s-td">
+    <app-main-button (click)="sendData()" text="Add expression"></app-main-button>
+  </div>
 </form>

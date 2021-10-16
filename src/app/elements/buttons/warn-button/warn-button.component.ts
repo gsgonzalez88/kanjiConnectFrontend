@@ -6,6 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class WarnButtonComponent implements OnInit {
   @Input() text = 'Delete';
+  @Input() disabled = false;
 
   constructor() { }
 

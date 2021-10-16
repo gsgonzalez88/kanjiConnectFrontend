@@ -1,3 +1,4 @@
+import { Difficulty } from './../../models/custom-types.model';
 import { Component, OnInit } from '@angular/core';
 import { ExpressionsService } from 'src/app/services/expressions.service';
 import { Expression, ExpressionInitializer, FilterExpressionsDto, UpdateExpressionDto } from 'src/app/models/expression.model';
@@ -80,19 +81,21 @@ export class ReviewComponent implements OnInit {
   }
 
   updateExpressionDifficulty(newDifficultyLevel: CardDifficultyLevel) {
-    const currentDifficulty: number = this.currentExpression.difficulty;
-    let updatedDifficulty: number | null = null;
+    const currentDifficulty: Difficulty = this.currentExpression.difficulty;
+    let updatedDifficulty: Difficulty = 0;
     if (newDifficultyLevel === 'easy') {
-      updatedDifficulty = currentDifficulty - 1;
+      updatedDifficulty = currentDifficulty - 2 as Difficulty;
     } else if (newDifficultyLevel === 'hard') {
-      updatedDifficulty = currentDifficulty + 1;
+      updatedDifficulty = currentDifficulty + 1 as Difficulty;
+    } else if (newDifficultyLevel === 'OK') {
+      updatedDifficulty = currentDifficulty - 1 as Difficulty;
     }
-    if (updatedDifficulty) {
-      const updateExpression: UpdateExpressionDto = { difficulty: updatedDifficulty }
-      this.expressionsService.update(this.currentExpression._id, updateExpression).subscribe(res => {
-        console.log('difficulty updated')
-      })
-    }
+    const updateExpression: UpdateExpressionDto = { difficulty: updatedDifficulty }
+    this.expressionsService.update(this.currentExpression._id, updateExpression).subscribe(res => {
+      console.log('difficulty updated')
+    }, err => {
+      console.log('difficulty NOT updated')
+    })
   }
 
 }
