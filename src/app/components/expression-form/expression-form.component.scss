@@ -1,0 +1,57 @@
+form{
+  .form-section{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    mat-form-field{
+      width: 100%;
+    }
+  }
+  .form-expression-section{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    @media(max-width: 440px) {
+      flex-wrap: wrap;
+    }
+    mat-form-field{
+      width: 100%;
+    }
+  }
+  .sentence-form-section{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    .form-fields{
+
+      mat-form-field{
+        width: 100%;
+      }
+    }
+    .buttons{
+      display: flex;
+      flex-wrap: nowrap;
+    }
+  }
+  .form-section-full{
+    width: 100%;
+  }
+  .form-select-group{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    @media(max-width: 440px) {
+      flex-wrap: wrap;
+    }
+    mat-form-field{
+      width: 48%;
+      @media(max-width: 440px) {
+        width: 100%;
+      }
+    }
+  }
+}

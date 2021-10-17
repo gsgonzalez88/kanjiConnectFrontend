@@ -8,6 +8,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -38,6 +40,7 @@ import { ExpressionFormComponent } from './components/expression-form/expression
 import { LessonsSelectComponent } from './elements/selects/lessons-select/lessons-select.component';
 import { TagsSelectComponent } from './elements/selects/tags-select/tags-select.component';
 import { TypesSelectComponent } from './elements/selects/types-select/types-select.component';
+import { IconButtonComponent } from './elements/buttons/icon-button/icon-button.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +67,8 @@ import { TypesSelectComponent } from './elements/selects/types-select/types-sele
     ExpressionFormComponent,
     LessonsSelectComponent,
     TagsSelectComponent,
-    TypesSelectComponent
+    TypesSelectComponent,
+    IconButtonComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +82,9 @@ import { TypesSelectComponent } from './elements/selects/types-select/types-sele
     MatSelectModule,
     MatCheckboxModule,
     MatCardModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatIconModule,
+    MatSnackBarModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: TimeInterceptor, multi: true

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Tag } from '../models/tag.model';
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject } from 'rxjs';
+import { take, takeWhile } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -26,4 +27,14 @@ export class TagsService {
     )
   }
 
+  getTagIds(tagNames: string[]) {
+    return new Promise(resolve => {
+      this.tags$.pipe(take(1)).subscribe(
+        res => {
+          const tagIds = res.filter(tag => tagNames.includes(tag.name)).map(tag => tag._id);
+          resolve(tagIds)
+        }
+      )
+    })
+  }
 }

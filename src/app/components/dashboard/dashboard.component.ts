@@ -1,5 +1,6 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,14 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
   public pages = [
-    { page: 'review', active: false },
-    { page: 'upload', active: false }
+    { page: 'review', active: false, location: '/review' },
+    { page: 'upload', active: false, location: '/upload' }
   ];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+              private location: Location) { }
 
   ngOnInit(): void {
-    this.setCurrentPageState(this.pages[0].page)
+    const currentLocation = this.location.path()
+    this.setCurrentPageState(this.pages.find(page => page.location === currentLocation)?.page || 'review')
   }
 
   navigate(page: string) {

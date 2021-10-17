@@ -5,6 +5,7 @@
   --l: 1280px;
   --xl: 1440px;
   --main-color: #673ab7;
+  --light-main-color: #f1f1f1;
 }
 
 .media-width{
@@ -24,6 +25,7 @@ mat-form-field{
 body{
   margin: 1em !important;
   box-sizing: border-box;
+  background-color: var(--light-main-color);
 }
 
 h1 {
@@ -63,6 +65,16 @@ ul {
 .m-m-rl{
   margin-right: 2em;
   margin-left: 2em;
+}
+
+.m-l-td{
+  margin-top: 3em;
+  margin-bottom: 3em;
+}
+
+.m-l-rl{
+  margin-right: 3em;
+  margin-left: 3em;
 }
 
 html, body { height: 100%; }

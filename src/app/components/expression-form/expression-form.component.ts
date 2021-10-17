@@ -1,4 +1,3 @@
-import { Jlpt, Transitivity } from './../../models/custom-types.model';
 import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
@@ -6,6 +5,8 @@ import { ExternalExpressionInitializer, FormExpressionDto } from './../../models
 import { ExpressionsService } from 'src/app/services/expressions.service';
 import { ExternalExpression } from 'src/app/models/expression.model';
 import { SelectValuesService } from 'src/app/services/select-values.service';
+import { TagsService } from 'src/app/services/tags.service';
+import { Jlpt, Transitivity } from './../../models/custom-types.model';
 
 @Component({
   selector: 'app-expression-form',
@@ -23,12 +24,13 @@ export class ExpressionFormComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private expressionsService: ExpressionsService,
-              private selectValuesService: SelectValuesService) {
+              private selectValuesService: SelectValuesService,
+              private tagsService: TagsService) {
     this.jlptValues = this.selectValuesService.getJlpt();
     this.transitivityValues = this.selectValuesService.getTransitivity();
     this.form = this.formBuilder.group({
       word: ['', Validators.required],
-      reading: ['', Validators.required],
+      reading: [''],
       englishMeaning: this.formBuilder.array([
         new FormGroup({ meaning: new FormControl('') })
       ]),
@@ -112,8 +114,11 @@ export class ExpressionFormComponent implements OnInit {
       })
   }
 
-  sendData() {
+  async sendData() {
     const tagsObject = this.form.get('tags')?.value;
+    const tagNames = Object.keys(tagsObject).filter(key => tagsObject[key])
+    const tagIds = await this.tagsService.getTagIds(tagNames);
+
     const formExpression: FormExpressionDto = {
       ...this.form.value,
       englishMeaning: this.englishMeaning.getRawValue()
@@ -122,7 +127,7 @@ export class ExpressionFormComponent implements OnInit {
         .filter(e => e.meaning !== null && e.meaning.length !== 0).map(e => e.meaning),
       exampleSentences: this.exampleSentences.getRawValue()
         .filter(e => e.sentence !== null && e.sentence.length !== 0),
-      tags: Object.keys(tagsObject).filter(key => tagsObject[key])
+      tags: tagIds
     }
     this.formData.emit(formExpression);
   }

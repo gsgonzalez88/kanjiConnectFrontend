@@ -9,7 +9,9 @@
   <form [formGroup]="filterForm" class="m-m-td">
     <app-types-select formControlName="type"></app-types-select>
     <app-lessons-select formControlName="lesson"></app-lessons-select>
-    <app-tags-select formControlName="tags"></app-tags-select>
+    <div class="m-s-td">
+      <app-tags-select formControlName="tags"></app-tags-select>
+    </div>
     <div>
       <app-main-button (click)="sendFilter()" text="Filter"></app-main-button>
     </div>
