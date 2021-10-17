@@ -44,7 +44,8 @@ export class ExpressionFormComponent implements OnInit {
       ]),
       jlpt: [null],
       transitivity: [null],
-      lesson: ['']
+      lesson: [''],
+      tags: ['']
     })
   }
 
@@ -112,6 +113,7 @@ export class ExpressionFormComponent implements OnInit {
   }
 
   sendData() {
+    const tagsObject = this.form.get('tags')?.value;
     const formExpression: FormExpressionDto = {
       ...this.form.value,
       englishMeaning: this.englishMeaning.getRawValue()
@@ -119,7 +121,8 @@ export class ExpressionFormComponent implements OnInit {
       japaneseMeaning: this.japaneseMeaning.getRawValue()
         .filter(e => e.meaning !== null && e.meaning.length !== 0).map(e => e.meaning),
       exampleSentences: this.exampleSentences.getRawValue()
-        .filter(e => e.sentence !== null && e.sentence.length !== 0)
+        .filter(e => e.sentence !== null && e.sentence.length !== 0),
+      tags: Object.keys(tagsObject).filter(key => tagsObject[key])
     }
     this.formData.emit(formExpression);
   }

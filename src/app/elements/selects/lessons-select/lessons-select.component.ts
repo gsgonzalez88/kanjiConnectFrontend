@@ -1,8 +1,8 @@
 import { Lesson } from 'src/app/models/lesson.model';
 import { LessonsService } from 'src/app/services/lessons.service';
-import { Component, OnInit, forwardRef, HostBinding, Input } from '@angular/core';
+import { Component, OnInit, forwardRef } from '@angular/core';
 import { ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-lessons-select',
@@ -21,7 +21,7 @@ export class LessonsSelectComponent implements OnInit, ControlValueAccessor {
   public lessons$: Observable<Lesson[]> = of([{
     user:  '',
     date: new Date,
-    topic: 'asdasd',
+    topic: '',
     link: '',
     _id: ''
   }]);

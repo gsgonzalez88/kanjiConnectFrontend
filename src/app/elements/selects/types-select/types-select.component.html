@@ -1,0 +1,10 @@
+<form [formGroup]="form">
+  <mat-form-field>
+    <mat-label>Type</mat-label>
+    <mat-select formControlName="type" (selectionChange)="onSelectionChange($event)">
+      <mat-option *ngFor="let type of types" value="{{ type.value }}">
+        {{ type.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>

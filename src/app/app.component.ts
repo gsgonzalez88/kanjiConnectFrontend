@@ -1,3 +1,4 @@
+import { TagsService } from 'src/app/services/tags.service';
 import { Component, OnInit } from '@angular/core';
 import { LessonsService } from './services/lessons.service';
 
@@ -7,9 +8,11 @@ import { LessonsService } from './services/lessons.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  constructor(private lessonsService: LessonsService) {}
+  constructor(private lessonsService: LessonsService,
+              private tagsService: TagsService) {}
 
   ngOnInit() {
     this.lessonsService.getLessons();
+    this.tagsService.getTags();
   }
 }

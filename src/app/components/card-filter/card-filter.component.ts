@@ -1,10 +1,7 @@
-import { Transitivity } from './../../models/custom-types.model';
-import { Component, OnInit, Output, EventEmitter, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Tag } from 'src/app/models/tag.model';
-import { Lesson } from 'src/app/models/lesson.model';
 import { CardFilter } from 'src/app/models/card-filter.model';
-import { DataType } from 'src/app/models/custom-types.model';
 import { SelectValuesService } from 'src/app/services/select-values.service';
 
 @Component({
@@ -12,35 +9,24 @@ import { SelectValuesService } from 'src/app/services/select-values.service';
   templateUrl: './card-filter.component.html',
   styleUrls: ['./card-filter.component.scss']
 })
-export class CardFilterComponent implements OnInit, OnChanges {
+export class CardFilterComponent implements OnInit {
   @Output() filter = new EventEmitter();
   @Input() tags: Tag[] = [];
 
   public filterForm: FormGroup;
   public panelOpenState: boolean = true;
-  public types: { name: string, value: DataType }[] = [{ name: '', value: 'expression'}];
 
   constructor(private formBuilder: FormBuilder,
               private selectValuesService: SelectValuesService) {
-    this.types = this.selectValuesService.getDataType();
     this.filterForm = this.formBuilder.group({
-      type: [this.types[0].value],
+      type: [this.selectValuesService.getDefaultDataTypeValue()],
       lesson: [''],
-      tags: this.formBuilder.group({})
+      tags: ['']
     })
   }
 
   ngOnInit(): void {
 
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.tags && changes.tags.currentValue.length > 0) {
-      const tagsForm = this.filterForm.get('tags') as FormGroup;
-      this.tags.forEach(tag => {
-        tagsForm.addControl(tag.name, new FormControl(false))
-      })
-    }
   }
 
   generateFilter() {

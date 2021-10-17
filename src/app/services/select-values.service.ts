@@ -33,4 +33,8 @@ export class SelectValuesService {
       { name: 'Kanjis', value: 'user-kanji' },
     ]
   }
+
+  getDefaultDataTypeValue(): DataType {
+    return this.getDataType()[0].value;
+  }
 }

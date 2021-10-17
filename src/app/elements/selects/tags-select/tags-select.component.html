@@ -1,0 +1,12 @@
+<form [formGroup]="form">
+  <section formGroupName="tags">
+    <span>Tags</span>
+    <ul>
+      <li *ngFor="let tag of tags$ | async">
+        <mat-checkbox formControlName="{{ tag.name }}">
+          {{ tag.name }}
+        </mat-checkbox>
+      </li>
+    </ul>
+  </section>
+</form>
