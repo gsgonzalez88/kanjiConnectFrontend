@@ -20,43 +20,49 @@
       </mat-form-field>
     </div>
     <!--ENGLISH MEANING-->
-    <section formArrayName="englishMeaning">
+    <section formArrayName="englishMeaning" class="border">
       <ng-container *ngFor="let meaning of englishMeaning.controls; let i = index">
         <div formGroupName="{{ i }}" class="form-section">
           <mat-form-field>
             <mat-label>English Meaning</mat-label>
             <input matInput formControlName="meaning" id="{{'name' + i}}" name="meaning">
           </mat-form-field>
-          <app-icon-button iconName="add_circle"
-                          (click)="addToFormArray('englishMeaning')"
-                          [disabled]="englishMeaning.controls[i].get('meaning')?.value.length === 0 ||
-                                      englishMeaning.length !== i + 1"></app-icon-button>
-          <app-icon-button iconName="delete" color="warn"
-                          (click)="deleteFromFormArray('englishMeaning', i)"
-                          [disabled]="englishMeaning.length === 1"></app-icon-button>
+          <button mat-icon-button color="primary"
+                  [disabled]="englishMeaning.controls[i].get('meaning')?.value.length === 0 ||
+                              englishMeaning.length !== i + 1"
+                  (click)="addToFormArray('englishMeaning')">
+            <mat-icon>add_circle</mat-icon>
+          </button>
+          <button mat-icon-button [disabled]="englishMeaning.length === 1" color="warn"
+                (click)="deleteFromFormArray('englishMeaning', i)">
+            <mat-icon>delete</mat-icon>
+          </button>
         </div>
       </ng-container>
     </section>
     <!--JAPANESE MEANING-->
-    <section formArrayName="japaneseMeaning">
+    <section formArrayName="japaneseMeaning" class="border">
       <ng-container *ngFor="let meaning of japaneseMeaning.controls; let i = index">
         <div formGroupName="{{ i }}" class="form-section">
           <mat-form-field>
             <mat-label>Japanese Meaning</mat-label>
             <input matInput formControlName="meaning" id="{{'name' + i}}" name="meaning">
           </mat-form-field>
-          <app-icon-button iconName="add_circle"
-                          (click)="addToFormArray('japaneseMeaning')"
-                          [disabled]="japaneseMeaning.controls[i].get('meaning')?.value.length === 0 ||
-                          japaneseMeaning.length !== i + 1"></app-icon-button>
-          <app-icon-button iconName="delete" color="warn"
-                          (click)="deleteFromFormArray('japaneseMeaning', i)"
-                          [disabled]="japaneseMeaning.length === 1"></app-icon-button>
+          <button mat-icon-button color="primary"
+                  [disabled]="japaneseMeaning.controls[i].get('meaning')?.value.length === 0 ||
+                              japaneseMeaning.length !== i + 1"
+                  (click)="addToFormArray('japaneseMeaning')">
+            <mat-icon>add_circle</mat-icon>
+          </button>
+          <button mat-icon-button [disabled]="japaneseMeaning.length === 1" color="warn"
+                  (click)="deleteFromFormArray('japaneseMeaning', i)">
+            <mat-icon>delete</mat-icon>
+          </button>
         </div>
       </ng-container>
     </section>
     <!--EXAMPLE SENTENCES-->
-    <section formArrayName="exampleSentences">
+    <section formArrayName="exampleSentences" class="border">
       <ng-container *ngFor="let sentence of exampleSentences.controls; let i = index">
         <div formGroupName="{{ i }}" class="sentence-form-section">
           <div class="form-fields">
@@ -74,13 +80,16 @@
             </mat-form-field>
           </div>
           <div class="buttons">
-            <app-icon-button iconName="add_circle"
-                            (click)="addToFormArray('exampleSentences')"
-                            [disabled]="exampleSentences.controls[i].get('sentence')?.value.length === 0 ||
-                            exampleSentences.length !== i + 1"></app-icon-button>
-            <app-icon-button iconName="delete" color="warn"
-                            (click)="deleteFromFormArray('exampleSentences', i)"
-                            [disabled]="exampleSentences.length === 1"></app-icon-button>
+            <button mat-icon-button color="primary"
+                    [disabled]="exampleSentences.controls[i].get('sentence')?.value.length === 0 ||
+                    exampleSentences.length !== i + 1"
+                    (click)="addToFormArray('exampleSentences')">
+              <mat-icon>add_circle</mat-icon>
+            </button>
+            <button mat-icon-button [disabled]="exampleSentences.length === 1" color="warn"
+                    (click)="deleteFromFormArray('exampleSentences', i)">
+              <mat-icon>delete</mat-icon>
+            </button>
           </div>
         </div>
       </ng-container>
