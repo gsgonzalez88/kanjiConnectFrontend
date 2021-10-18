@@ -36,7 +36,7 @@ export class UploadComponent implements OnInit {
         res => {
           this.snackBar.open('Expression created', 'OK', { duration: 3000 });
         }, err => {
-          this.snackBar.open(err.error.message, 'Error', { duration: 3000 });
+          this.snackBar.open(`Expression couldn't be created`, err.error.message, { duration: 3000 });
         }
       )
     }

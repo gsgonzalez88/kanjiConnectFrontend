@@ -7,6 +7,7 @@
   --main-color: #673ab7;
   --light-main-color: #f1f1f1;
   --accent-color: #ffd74a;
+  --dark-color: #333333;
 }
 
 .media-width{
@@ -32,10 +33,11 @@ body {
 h1 {
   color: var(--main-color);
   font-size: 2.5em !important;
+  margin: 0 !important;
 }
 
-h1{
-  margin: 0 !important;
+h2 {
+  color: var(--dark-color);
 }
 
 p{
@@ -49,40 +51,44 @@ ul {
 }
 
 .m-s-td{
-  margin-top: 1em;
-  margin-bottom: 1em;
+  margin: 1em 0;
 }
 
 .m-s-rl{
-  margin-right: 1em;
-  margin-left: 1em;
+  margin: 0 1em;
 }
 
 .m-m-td{
-  margin-top: 2em;
-  margin-bottom: 2em;
+  margin: 2em 0;
 }
 
 .m-m-rl{
+  margin: 0 2em;
+}
+
+.m-s-r{
+  margin-right: 1em;
+}
+
+.m-m-r{
   margin-right: 2em;
-  margin-left: 2em;
 }
 
-.m-l-td{
-  margin-top: 3em;
-  margin-bottom: 3em;
-}
+@mixin border(){
 
-.m-l-rl{
-  margin-right: 3em;
-  margin-left: 3em;
-}
-
-.border {
-  border: 2px solid var(--light-main-color);
   border-radius: 4px;
   padding: 1em;
   margin: 1em 0;
+}
+
+.border {
+  @include border();
+  border: 2px solid var(--light-main-color);
+}
+
+.border-main {
+  @include border();
+  border: 2px solid var(--main-color);
 }
 
 html, body { height: 100%; }

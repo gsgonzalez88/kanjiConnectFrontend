@@ -1,24 +1,24 @@
 <mat-card>
-  <div class="m-m-td">
-    <mat-card-title>Upload new expression</mat-card-title>
-  </div>
+  <h2>Upload new expression</h2>
   <form [formGroup]="form">
-    <div class="form-expression-section">
-      <mat-form-field>
-        <mat-label>Expression</mat-label>
-        <input matInput formControlName="word">
-      </mat-form-field>
-      <app-main-button text="Autocomplete"
-                      (click)="autocomplete()"
-                      [disabled]="!form.get('word')?.valid">
-      </app-main-button>
-    </div>
-    <div class="form-section">
-      <mat-form-field>
-        <mat-label>Reading</mat-label>
-        <input matInput formControlName="reading">
-      </mat-form-field>
-    </div>
+    <section class="form-expression-section border-main">
+      <div class="expression-container">
+        <mat-form-field>
+          <mat-label>Expression</mat-label>
+          <input matInput formControlName="word" autofocus>
+        </mat-form-field>
+        <app-accent-button text="Autocomplete"
+                        (click)="autocomplete()"
+                        [disabled]="!form.get('word')?.valid">
+        </app-accent-button>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Reading</mat-label>
+          <input matInput formControlName="reading">
+        </mat-form-field>
+      </div>
+    </section>
     <!--ENGLISH MEANING-->
     <section formArrayName="englishMeaning" class="border">
       <ng-container *ngFor="let meaning of englishMeaning.controls; let i = index">
@@ -62,9 +62,9 @@
       </ng-container>
     </section>
     <!--EXAMPLE SENTENCES-->
-    <section formArrayName="exampleSentences" class="border">
+    <section formArrayName="exampleSentences">
       <ng-container *ngFor="let sentence of exampleSentences.controls; let i = index">
-        <div formGroupName="{{ i }}" class="sentence-form-section">
+        <div formGroupName="{{ i }}" class="sentence-form-section border">
           <div class="form-fields">
             <mat-form-field>
               <mat-label>Example Sentence</mat-label>
@@ -95,28 +95,18 @@
       </ng-container>
     </section>
     <div class="form-select-group">
-      <mat-form-field>
-        <mat-label>JLPT</mat-label>
-        <mat-select formControlName="jlpt">
-          <mat-option *ngFor="let jlpt of jlptValues" [value]="jlpt.value">
-            {{ jlpt.name }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Transitivity</mat-label>
-        <mat-select formControlName="transitivity">
-          <mat-option *ngFor="let transitivity of transitivityValues" [value]="transitivity.value">
-            {{ transitivity.name }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+      <div class="select">
+        <app-jlpt-select formControlName="jlpt"></app-jlpt-select>
+      </div>
+      <div class="select">
+        <app-transitivity-select formControlName="transitivity"></app-transitivity-select>
+      </div>
     </div>
     <div class="form-section-full">
       <app-lessons-select formControlName="lesson"></app-lessons-select>
     </div>
     <app-tags-select formControlName="tags"></app-tags-select>
-    <div class="m-s-td">
+    <div class="m-s-td submit-button">
       <app-main-button (click)="sendData()"
                         text="Add expression"
                         [disabled]="form.invalid">

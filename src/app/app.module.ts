@@ -10,6 +10,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDividerModule } from '@angular/material/divider';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -41,6 +42,8 @@ import { LessonsSelectComponent } from './elements/selects/lessons-select/lesson
 import { TagsSelectComponent } from './elements/selects/tags-select/tags-select.component';
 import { TypesSelectComponent } from './elements/selects/types-select/types-select.component';
 import { IconButtonComponent } from './elements/buttons/icon-button/icon-button.component';
+import { JlptSelectComponent } from './elements/selects/jlpt-select/jlpt-select.component';
+import { TransitivitySelectComponent } from './elements/selects/transitivity-select/transitivity-select.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +71,9 @@ import { IconButtonComponent } from './elements/buttons/icon-button/icon-button.
     LessonsSelectComponent,
     TagsSelectComponent,
     TypesSelectComponent,
-    IconButtonComponent
+    IconButtonComponent,
+    JlptSelectComponent,
+    TransitivitySelectComponent
   ],
   imports: [
     BrowserModule,
@@ -84,7 +89,8 @@ import { IconButtonComponent } from './elements/buttons/icon-button/icon-button.
     MatCardModule,
     MatExpansionModule,
     MatIconModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDividerModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: TimeInterceptor, multi: true

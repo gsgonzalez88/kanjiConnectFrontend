@@ -1,0 +1,11 @@
+<form [formGroup]="form">
+  <mat-form-field>
+    <mat-label>Transitivity</mat-label>
+    <mat-select formControlName="transitivity" (selectionChange)="onSelectionChange($event)">
+      <mat-option *ngFor="let transitivity of transitivityValues" [value]="transitivity.value">
+        {{ transitivity.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>
+

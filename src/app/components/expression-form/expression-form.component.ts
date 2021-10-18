@@ -4,9 +4,7 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { ExternalExpressionInitializer, FormExpressionDto } from './../../models/expression.model';
 import { ExpressionsService } from 'src/app/services/expressions.service';
 import { ExternalExpression } from 'src/app/models/expression.model';
-import { SelectValuesService } from 'src/app/services/select-values.service';
 import { TagsService } from 'src/app/services/tags.service';
-import { Jlpt, Transitivity } from './../../models/custom-types.model';
 
 @Component({
   selector: 'app-expression-form',
@@ -17,17 +15,12 @@ export class ExpressionFormComponent implements OnInit {
   public form: FormGroup;
   public externalExpressions: ExternalExpression[] = [];
   public currentExternalExpression: ExternalExpression = new ExternalExpressionInitializer();
-  public jlptValues: { name: number | '', value: Jlpt }[] = [{ name: '', value: null }];
-  public transitivityValues: { name: string, value: Transitivity }[] = [{ name: '', value: null }];
 
   @Output() formData = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder,
               private expressionsService: ExpressionsService,
-              private selectValuesService: SelectValuesService,
               private tagsService: TagsService) {
-    this.jlptValues = this.selectValuesService.getJlpt();
-    this.transitivityValues = this.selectValuesService.getTransitivity();
     this.form = this.formBuilder.group({
       word: ['', Validators.required],
       reading: [''],
@@ -50,7 +43,6 @@ export class ExpressionFormComponent implements OnInit {
       tags: ['']
     })
   }
-
 
   ngOnInit(): void {
   }

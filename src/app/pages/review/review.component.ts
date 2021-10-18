@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Difficulty } from './../../models/custom-types.model';
 import { Component, OnInit } from '@angular/core';
 import { ExpressionsService } from 'src/app/services/expressions.service';
@@ -24,7 +25,8 @@ export class ReviewComponent implements OnInit {
   private user = '61478fb9b2cfde16186509b5';
 
   constructor(private expressionsService: ExpressionsService,
-              private tagsService: TagsService) { }
+              private tagsService: TagsService,
+              private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.getTags();
@@ -83,9 +85,9 @@ export class ReviewComponent implements OnInit {
     }
     const updateExpression: UpdateExpressionDto = { difficulty: updatedDifficulty }
     this.expressionsService.update(this.currentExpression._id, updateExpression).subscribe(res => {
-      console.log('difficulty updated')
+      //this.snackBar.open('Difficulty updaded', 'OK', { duration: 3000 })
     }, err => {
-      console.log('difficulty NOT updated')
+      this.snackBar.open('Difficulty not update', err.error.message, { duration: 3000 })
     })
   }
 

@@ -7,8 +7,14 @@
     </mat-panel-title>
   </mat-expansion-panel-header>
   <form [formGroup]="filterForm" class="m-m-td">
-    <app-types-select formControlName="type"></app-types-select>
-    <app-lessons-select formControlName="lesson"></app-lessons-select>
+    <div class="select-container">
+      <div>
+        <app-types-select formControlName="type"></app-types-select>
+      </div>
+      <div>
+        <app-lessons-select formControlName="lesson"></app-lessons-select>
+      </div>
+    </div>
     <div class="m-s-td">
       <app-tags-select formControlName="tags"></app-tags-select>
     </div>

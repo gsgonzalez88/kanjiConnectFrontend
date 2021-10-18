@@ -9,3 +9,17 @@ ul {
     margin-right: 1em;
   }
 }
+
+.select-container{
+  display: flex;
+  justify-content: space-between;
+  @media(max-width: 768px) {
+    flex-wrap: wrap;
+  }
+  div{
+    width: 49%;
+    @media(max-width: 768px) {
+      width: 100%;
+    }
+  }
+}

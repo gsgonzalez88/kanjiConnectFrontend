@@ -1,0 +1,10 @@
+<form [formGroup]="form">
+  <mat-form-field>
+    <mat-label>JLPT</mat-label>
+    <mat-select formControlName="jlpt" (selectionChange)="onSelectionChange($event)">
+      <mat-option *ngFor="let jlpt of jlptValues" [value]="jlpt.value">
+        {{ jlpt.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>
