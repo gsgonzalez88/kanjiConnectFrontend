@@ -1,16 +1,17 @@
 <mat-card>
   <h2>Upload new expression</h2>
   <form [formGroup]="form">
-    <section class="form-expression-section border-main">
+    <section class="form-expression-section" (click)="setFormActiveArea('expression')"
+              [ngClass]="{ 'border-main': formActiveArea === 'expression', 'border': formActiveArea !== 'expression' }">
       <div class="expression-container">
         <mat-form-field>
           <mat-label>Expression</mat-label>
           <input matInput formControlName="word" autofocus>
         </mat-form-field>
-        <app-accent-button text="Autocomplete"
-                        (click)="autocomplete()"
-                        [disabled]="!form.get('word')?.valid">
-        </app-accent-button>
+        <button mat-raised-button color="accent"
+                (click)="autocomplete()" [disabled]="!form.get('word')?.valid">
+          Autocomplete
+        </button>
       </div>
       <div>
         <mat-form-field>
@@ -20,7 +21,8 @@
       </div>
     </section>
     <!--ENGLISH MEANING-->
-    <section formArrayName="englishMeaning" class="border">
+    <section formArrayName="englishMeaning" class="border" (click)="setFormActiveArea('englishMeaning')"
+              [ngClass]="{ 'border-main': formActiveArea === 'englishMeaning', 'border': formActiveArea !== 'englishMeaning'}">
       <ng-container *ngFor="let meaning of englishMeaning.controls; let i = index">
         <div formGroupName="{{ i }}" class="form-section">
           <mat-form-field>
@@ -41,7 +43,8 @@
       </ng-container>
     </section>
     <!--JAPANESE MEANING-->
-    <section formArrayName="japaneseMeaning" class="border">
+    <section formArrayName="japaneseMeaning" class="border" (click)="setFormActiveArea('japaneseMeaning')"
+            [ngClass]="{ 'border-main': formActiveArea === 'japaneseMeaning', 'border': formActiveArea !== 'japaneseMeaning' }">
       <ng-container *ngFor="let meaning of japaneseMeaning.controls; let i = index">
         <div formGroupName="{{ i }}" class="form-section">
           <mat-form-field>
@@ -64,7 +67,8 @@
     <!--EXAMPLE SENTENCES-->
     <section formArrayName="exampleSentences">
       <ng-container *ngFor="let sentence of exampleSentences.controls; let i = index">
-        <div formGroupName="{{ i }}" class="sentence-form-section border">
+        <div formGroupName="{{ i }}" class="sentence-form-section border" (click)="setFormActiveArea('exampleSentences')"
+              [ngClass]="{ 'border-main': formActiveArea === 'exampleSentences', 'border': formActiveArea !== 'exampleSentences' }">
           <div class="form-fields">
             <mat-form-field>
               <mat-label>Example Sentence</mat-label>
@@ -94,23 +98,28 @@
         </div>
       </ng-container>
     </section>
-    <div class="form-select-group">
-      <div class="select">
-        <app-jlpt-select formControlName="jlpt"></app-jlpt-select>
+    <section (click)="setFormActiveArea('none')">
+      <div class="form-select-group">
+        <div class="select">
+          <app-jlpt-select formControlName="jlpt"></app-jlpt-select>
+        </div>
+        <div class="select">
+          <app-transitivity-select formControlName="transitivity"></app-transitivity-select>
+        </div>
       </div>
-      <div class="select">
-        <app-transitivity-select formControlName="transitivity"></app-transitivity-select>
+      <div class="form-section-full">
+        <app-lessons-select formControlName="lesson"></app-lessons-select>
       </div>
-    </div>
-    <div class="form-section-full">
-      <app-lessons-select formControlName="lesson"></app-lessons-select>
-    </div>
-    <app-tags-select formControlName="tags"></app-tags-select>
-    <div class="m-s-td submit-button">
-      <app-main-button (click)="sendData()"
-                        text="Add expression"
-                        [disabled]="form.invalid">
-      </app-main-button>
-    </div>
+      <app-tags-select formControlName="tags"></app-tags-select>
+      <div class="m-s-td form-buttons-container">
+        <button mat-stroked-button color="primary" (click)="cleanForm()">
+          Clean
+        </button>
+        <button mat-raised-button color="primary"
+              (click)="sendData()" [disabled]="form.invalid">
+          Add expression
+        </button>
+      </div>
+    </section>
   </form>
 </mat-card>

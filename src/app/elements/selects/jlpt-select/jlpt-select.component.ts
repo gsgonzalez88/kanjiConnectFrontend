@@ -37,7 +37,7 @@ export class JlptSelectComponent implements OnInit, ControlValueAccessor {
   }
 
   writeValue(obj: any): void {
-
+    this.form.get('jlpt')?.setValue(obj);
   }
 
   registerOnChange(fn: any): void {

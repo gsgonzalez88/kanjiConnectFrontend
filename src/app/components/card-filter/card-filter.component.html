@@ -18,8 +18,8 @@
     <div class="m-s-td">
       <app-tags-select formControlName="tags"></app-tags-select>
     </div>
-    <div>
-      <app-main-button (click)="sendFilter()" text="Filter"></app-main-button>
+    <div class="form-button-container">
+      <button mat-raised-button color="primary" (click)="sendFilter()">Filter</button>
     </div>
   </form>
 </mat-expansion-panel>

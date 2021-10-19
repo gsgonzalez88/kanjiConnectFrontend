@@ -1,4 +1,4 @@
-import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, FormArray, FormGroupDirective } from '@angular/forms';
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 import { ExternalExpressionInitializer, FormExpressionDto } from './../../models/expression.model';
@@ -12,39 +12,24 @@ import { TagsService } from 'src/app/services/tags.service';
   styleUrls: ['./expression-form.component.scss']
 })
 export class ExpressionFormComponent implements OnInit {
-  public form: FormGroup;
+  public form = new FormGroup({});
   public externalExpressions: ExternalExpression[] = [];
   public currentExternalExpression: ExternalExpression = new ExternalExpressionInitializer();
+  public formActiveArea: 'expression' | 'englishMeaning' | 'japaneseMeaning' | 'exampleSentences' | 'none' = 'expression';
 
   @Output() formData = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder,
               private expressionsService: ExpressionsService,
               private tagsService: TagsService) {
-    this.form = this.formBuilder.group({
-      word: ['', Validators.required],
-      reading: [''],
-      englishMeaning: this.formBuilder.array([
-        new FormGroup({ meaning: new FormControl('') })
-      ]),
-      japaneseMeaning: this.formBuilder.array([
-        new FormGroup({ meaning: new FormControl('') })
-      ]),
-      exampleSentences: this.formBuilder.array([
-        new FormGroup({
-          sentence: new FormControl(''),
-          source: new FormControl(''),
-          link: new FormControl('')
-        })
-      ]),
-      jlpt: [null],
-      transitivity: [null],
-      lesson: [''],
-      tags: ['']
-    })
+    this.createForm();
   }
 
   ngOnInit(): void {
+  }
+
+  setFormActiveArea(area: 'expression' | 'englishMeaning' | 'japaneseMeaning' | 'exampleSentences' | 'none') {
+    this.formActiveArea = area;
   }
 
   get englishMeaning(): FormArray {
@@ -122,5 +107,33 @@ export class ExpressionFormComponent implements OnInit {
       tags: tagIds
     }
     this.formData.emit(formExpression);
+  }
+
+  createForm() {
+    this.form = this.formBuilder.group({
+      word: ['', Validators.required],
+      reading: [''],
+      englishMeaning: this.formBuilder.array([
+        new FormGroup({ meaning: new FormControl('') })
+      ]),
+      japaneseMeaning: this.formBuilder.array([
+        new FormGroup({ meaning: new FormControl('') })
+      ]),
+      exampleSentences: this.formBuilder.array([
+        new FormGroup({
+          sentence: new FormControl(''),
+          source: new FormControl(''),
+          link: new FormControl('')
+        })
+      ]),
+      jlpt: [null],
+      transitivity: [null],
+      lesson: [''],
+      tags: ['']
+    })
+  }
+
+  cleanForm() {
+    this.createForm();
   }
 }

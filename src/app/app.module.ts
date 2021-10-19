@@ -11,6 +11,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatChipsModule } from '@angular/material/chips';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -92,7 +93,8 @@ import { LoadingComponent } from './components/loading/loading.component';
     MatExpansionModule,
     MatIconModule,
     MatSnackBarModule,
-    MatDividerModule
+    MatDividerModule,
+    MatChipsModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: TimeInterceptor, multi: true

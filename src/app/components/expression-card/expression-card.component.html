@@ -3,10 +3,10 @@
   <div *ngIf="cardFlipState === 'front'" class="card front">
     <h3>{{ expression.word }}</h3>
     <div>
-      <app-accent-button *ngIf="!showHint"
-                          (click)="showHint = true"
-                          text="Show hint">
-      </app-accent-button>
+      <button mat-stroked-button color="primary"
+              *ngIf="!showHint" (click)="showHint = true">
+        Show hint
+      </button>
       <p *ngIf="showHint">{{ expression.exampleSentences[0].sentence }}</p>
     </div>
     <app-main-button (click)="cardFlipState = 'back'" text="Show reverse"></app-main-button>
@@ -28,11 +28,15 @@
     <div class="difficulty-section">
       <p>Difficulty: {{ expression.difficulty | difficulty }}</p>
       <div class="buttons-container">
-        <app-warn-button (click)="sendDifficulty('hard')" text="Hard"></app-warn-button>
-        <div class="m-s-rl">
-          <app-main-button (click)="sendDifficulty('OK')" text="OK"></app-main-button>
-        </div>
-        <app-accent-button (click)="sendDifficulty('easy')" text="Easy"></app-accent-button>
+        <button mat-flat-button color="warn" (click)="sendDifficulty('hard')">
+          Hard
+        </button>
+        <button mat-flat-button color="primary" (click)="sendDifficulty('OK')" class="m-s-rl">
+          OK
+        </button>
+        <button mat-flat-button color="accent" (click)="sendDifficulty('easy')">
+          Easy
+        </button>
       </div>
     </div>
   </div>

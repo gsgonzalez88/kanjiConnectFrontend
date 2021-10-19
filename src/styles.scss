@@ -55,6 +55,11 @@ a {
   font-weight: bold;
 }
 
+.form-buttons-container{
+  display: flex;
+  justify-content: space-between;
+}
+
 .m-s-td{
   margin: 1em 0;
 }

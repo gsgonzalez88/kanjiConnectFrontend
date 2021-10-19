@@ -39,9 +39,7 @@ export class TransitivitySelectComponent implements OnInit, ControlValueAccessor
   }
 
   writeValue(value: string): void {
-    if (value) {
-      console.log(value)
-    }
+    this.form.get('transitivity')?.setValue(value);
   }
 
   registerOnChange(fn: any): void {

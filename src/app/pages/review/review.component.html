@@ -1,8 +1,8 @@
-<app-card-filter
-  [tags]="tags"
-  (filter)="setFilter($event)">
-</app-card-filter>
 <div class="card-container media-width">
+  <app-card-filter
+    [tags]="tags"
+    (filter)="setFilter($event)">
+  </app-card-filter>
   <app-review-counter
     [total]="total"
     [currentIndex]="currentIndex"
