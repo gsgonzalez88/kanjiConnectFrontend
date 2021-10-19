@@ -1,7 +1,8 @@
+import { FetchedDataState } from './../../../models/custom-types.model';
 import { Component, forwardRef, OnDestroy, OnInit } from '@angular/core';
 import { ControlValueAccessor, FormArray, FormBuilder, FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable, of, Subscription } from 'rxjs';
-import { Tag } from 'src/app/models/tag.model';
+import { emptyTag, Tag } from 'src/app/models/tag.model';
 import { TagsService } from 'src/app/services/tags.service';
 
 @Component({
@@ -18,12 +19,8 @@ import { TagsService } from 'src/app/services/tags.service';
 })
 export class TagsSelectComponent implements OnInit, ControlValueAccessor, OnDestroy {
   public form: FormGroup;
-  public tags$: Observable<Tag[]> = of([{
-    user:  '',
-    name: '',
-    description: '',
-    _id: '',
-  }]);
+  public tags$: Observable<Tag[]> = of([emptyTag]);
+  public fetchedDataState: FetchedDataState = 'loading';
   private subscription: Subscription = new Subscription();
 
   onChange = (e: any) => {};
@@ -43,6 +40,7 @@ export class TagsSelectComponent implements OnInit, ControlValueAccessor, OnDest
     const tagsForm = this.form.controls['tags'] as FormGroup;
     this.tags$ = this.tagsService.tags$;
     this.subscription = this.tags$.subscribe(res => {
+      this.fetchedDataState = res.length > 0 ? 'loaded' : 'no data'
       res.forEach(tag => {
         tagsForm.addControl(tag.name, new FormControl(false))
       })
@@ -50,6 +48,8 @@ export class TagsSelectComponent implements OnInit, ControlValueAccessor, OnDest
         this.onTouched();
         this.onChange(res);
       })
+    }, err => {
+      this.fetchedDataState = 'no data';
     })
   }
 

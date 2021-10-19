@@ -38,13 +38,6 @@
   </div>
 </mat-card>
 
-<section class="loading m-m-td">
-  <div *ngIf="fetchedDataState === 'loading'">
-    Loading...
-  </div>
-  <div *ngIf="fetchedDataState === 'no data'">
-    No data
-  </div>
-</section>
+<app-loading [fetchedDataState]="fetchedDataState" dataType="cards"></app-loading>
 
 

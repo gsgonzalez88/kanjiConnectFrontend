@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { EmptyLesson, Lesson } from '../models/lesson.model';
+import { emptyLesson, Lesson, loadingLesson } from '../models/lesson.model';
 
 
 @Injectable({
@@ -10,7 +10,7 @@ import { EmptyLesson, Lesson } from '../models/lesson.model';
 })
 export class LessonsService {
   private user = '61478fb9b2cfde16186509b5';
-  private lessons = new BehaviorSubject<Lesson[]>([]);
+  private lessons = new BehaviorSubject<Lesson[]>([loadingLesson]);
   lessons$ = this.lessons.asObservable();
 
   constructor(private http: HttpClient) { }
@@ -22,7 +22,7 @@ export class LessonsService {
   getLessons() {
     this.http.get<Lesson[]>(environment.lessons + '/user/' + this.user).subscribe(
       res => {
-        res.unshift(EmptyLesson);
+        res.unshift(emptyLesson);
         this.lessons.next(res)
       }
     )

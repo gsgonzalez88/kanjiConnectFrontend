@@ -6,10 +6,15 @@ export interface Lesson {
   _id: string;
 }
 
-export const EmptyLesson: Lesson = {
+export const emptyLesson: Lesson = {
   user:  '',
   date: new Date,
   topic: '',
   link: '',
   _id: '',
+}
+
+export const loadingLesson: Lesson = {
+  ...emptyLesson,
+  topic: 'Loading...'
 }

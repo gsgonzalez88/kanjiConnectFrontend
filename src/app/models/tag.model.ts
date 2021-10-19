@@ -4,3 +4,10 @@ export interface Tag{
   description: string;
   _id: string;
 }
+
+export const emptyTag = {
+  user: '',
+  name: '',
+  description: '',
+  _id: ''
+}

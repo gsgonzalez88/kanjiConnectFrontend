@@ -1,3 +1,4 @@
+import { emptyLesson } from './../../../models/lesson.model';
 import { Lesson } from 'src/app/models/lesson.model';
 import { LessonsService } from 'src/app/services/lessons.service';
 import { Component, OnInit, forwardRef } from '@angular/core';
@@ -18,13 +19,7 @@ import { Observable, of, Subscription } from 'rxjs';
 })
 export class LessonsSelectComponent implements OnInit, ControlValueAccessor {
   public form: FormGroup;
-  public lessons$: Observable<Lesson[]> = of([{
-    user:  '',
-    date: new Date,
-    topic: '',
-    link: '',
-    _id: ''
-  }]);
+  public lessons$: Observable<Lesson[]> = of([emptyLesson]);
 
   onChange = (e: any) => {}
   onTouched = () => {}

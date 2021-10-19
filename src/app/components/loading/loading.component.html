@@ -1,0 +1,9 @@
+<section class="m-m-td"
+        [ngClass]="{'center': textAlign === 'center', 'right': textAlign === 'right', 'left': textAlign === 'left'}">
+  <div *ngIf="fetchedDataState === 'loading'">
+    Loading...
+  </div>
+  <div *ngIf="fetchedDataState === 'no data'">
+    No {{ dataType }}
+  </div>
+</section>

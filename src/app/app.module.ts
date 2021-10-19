@@ -44,6 +44,7 @@ import { TypesSelectComponent } from './elements/selects/types-select/types-sele
 import { IconButtonComponent } from './elements/buttons/icon-button/icon-button.component';
 import { JlptSelectComponent } from './elements/selects/jlpt-select/jlpt-select.component';
 import { TransitivitySelectComponent } from './elements/selects/transitivity-select/transitivity-select.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { TransitivitySelectComponent } from './elements/selects/transitivity-sel
     TypesSelectComponent,
     IconButtonComponent,
     JlptSelectComponent,
-    TransitivitySelectComponent
+    TransitivitySelectComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
