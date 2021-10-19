@@ -18,7 +18,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     const currentLocation = this.location.path()
-    this.setCurrentPageState(this.pages.find(page => page.location === currentLocation)?.page || 'review')
+    this.setCurrentPageState(this.pages.find(page => page.location === currentLocation)?.page || 'home')
   }
 
   navigate(page: string) {

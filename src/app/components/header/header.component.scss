@@ -1,5 +1,9 @@
-div{
+.container{
   text-align: center;
+  .upper-anchors{
+    display: flex;
+    justify-content: flex-end;
+  }
   p{
     color: var(--main-color);
     margin-top: 0.7em !important;

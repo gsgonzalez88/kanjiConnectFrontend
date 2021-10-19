@@ -1,14 +1,12 @@
 <div class="container m-s-td">
-  <div class="m-s-rl">
-    <app-accent-button (click)="navigate(pages[0].page)"
-                      text="Review"
-                      [disabled]="pages[0].active">
-    </app-accent-button>
-  </div>
-  <div class="m-s-rl">
-    <app-accent-button (click)="navigate(pages[1].page)"
-                      text="Upload"
-                      [disabled]="pages[1].active">
-    </app-accent-button>
-  </div>
+  <button mat-raised-button color="accent" class="m-s-rl"
+          (click)="navigate(pages[0].page)"
+          [disabled]="pages[0].active">
+    Review
+  </button>
+  <button mat-raised-button color="accent" class="m-s-rl"
+          (click)="navigate(pages[1].page)"
+          [disabled]="pages[1].active">
+    Upload
+  </button>
 </div>

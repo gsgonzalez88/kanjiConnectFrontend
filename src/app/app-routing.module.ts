@@ -14,7 +14,7 @@ import { UploadComponent } from './pages/upload/upload.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home',
+    redirectTo: '/review',
     pathMatch: 'full'
   }, {
     path: 'home',

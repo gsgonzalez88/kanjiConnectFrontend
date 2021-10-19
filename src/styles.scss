@@ -50,12 +50,17 @@ ul {
   margin: 0;
 }
 
+a {
+  text-decoration: none;
+  font-weight: bold;
+}
+
 .m-s-td{
   margin: 1em 0;
 }
 
 .m-s-rl{
-  margin: 0 1em;
+  margin: 0 1em !important;
 }
 
 .m-m-td{
