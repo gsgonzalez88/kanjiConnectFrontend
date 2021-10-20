@@ -5,6 +5,7 @@
   --l: 1280px;
   --xl: 1440px;
   --main-color: #673ab7;
+  --medium-main-color: #b5a7cf;
   --light-main-color: #f1f1f1;
   --accent-color: #ffd74a;
   --dark-color: #333333;
@@ -58,6 +59,14 @@ a {
 .form-buttons-container{
   display: flex;
   justify-content: space-between;
+}
+
+.tag{
+  background-color: var(--medium-main-color);
+  display: block;
+  padding: 0.3em;
+  border-radius: 8px;
+  box-shadow: 1px 1px 4px -2px rgba(0,0,0,0.75);
 }
 
 .m-s-td{
