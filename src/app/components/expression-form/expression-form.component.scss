@@ -21,15 +21,12 @@ form{
       }
     }
     .expression-container{
+      width: 100%;
+    }
+    .expression-buttons{
       display: flex;
-      align-items: center;
-      button{
-        width: 150px !important;
-      }
-      @media(max-width: 768px) {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+      justify-content: space-between;
+      margin-bottom: 1em;
     }
   }
   .sentence-form-section{

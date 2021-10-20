@@ -62,13 +62,12 @@ export class ExpressionFormComponent implements OnInit {
     form.removeAt(index);
   }
 
-  cleanEmptyValuesFromFormArray(formArray: string) {
+  cleanValuesFromFormArray(formArray: string) {
     const form = this.form.controls[formArray] as FormArray;
-    form.getRawValue().forEach((value, i) => {
-      if (value.meaning === null || value.meaning.length === 0) {
-        this.deleteFromFormArray(formArray, i);
-      }
-    })
+    const length = form.length;
+    for (let i = 0; i < length; i++) {
+      form.removeAt(0);
+    }
   }
 
   autocomplete() {
@@ -78,10 +77,10 @@ export class ExpressionFormComponent implements OnInit {
         if (this.externalExpressions.length > 0) {
           this.currentExternalExpression = this.externalExpressions[0];
           this.form.get('reading')?.setValue(this.currentExternalExpression.reading);
+          this.cleanValuesFromFormArray('englishMeaning');
           this.currentExternalExpression.englishMeaning.forEach((meaning, i) => {
             this.addToFormArray('englishMeaning', meaning)
           })
-          this.cleanEmptyValuesFromFormArray('englishMeaning');
           this.addToFormArray('englishMeaning');
           this.form.get('jlpt')?.setValue(this.currentExternalExpression.jlpt)
           this.form.get('transitivity')?.setValue(this.currentExternalExpression.transitivity);
@@ -135,5 +134,15 @@ export class ExpressionFormComponent implements OnInit {
 
   cleanForm() {
     this.createForm();
+  }
+
+  getRandomWord() {
+    const words = ['周囲', '理解', 'お屋敷', '地味', '仕事', '整頓', '主人', 'お客様', '好み', '調味料', '食材', '掃除', '気分'];
+    const randomWord = words[Math.floor(Math.random()*words.length)];
+    if (randomWord !== this.form.get('word')?.value) {
+      this.form.get('word')?.setValue(randomWord);
+    } else {
+      this.getRandomWord();
+    }
   }
 }

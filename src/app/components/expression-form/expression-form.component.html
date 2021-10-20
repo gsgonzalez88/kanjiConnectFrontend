@@ -8,6 +8,11 @@
           <mat-label>Expression</mat-label>
           <input matInput formControlName="word" autofocus>
         </mat-form-field>
+      </div>
+      <div class="expression-buttons">
+        <button mat-raised-button color="primary" (click)="getRandomWord()">
+          Random word
+        </button>
         <button mat-raised-button color="accent"
                 (click)="autocomplete()" [disabled]="!form.get('word')?.valid">
           Autocomplete
