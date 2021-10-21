@@ -10,6 +10,8 @@
   </app-review-counter>
   <app-expression-card
     [expression]="currentExpression"
+    [userKanji]="currentUserKanji"
+    [type]="type"
     (difficulty)="setDifficulty($event)"
     [fetchedDataState]="fetchedDataState">
   </app-expression-card>

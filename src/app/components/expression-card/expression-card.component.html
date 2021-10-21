@@ -1,10 +1,10 @@
 <mat-card *ngIf="expression && fetchedDataState === 'loaded'">
   <!--CARD FRONT-->
   <div *ngIf="cardFlipState === 'front'" class="card front">
-    <h3>{{ expression.word }}</h3>
+    <h3>{{ type === 'expression' ? expression.word : userKanji.kanji.kanji }}</h3>
     <div>
       <button mat-stroked-button color="primary"
-              *ngIf="!showHint" (click)="showHint = true">
+              *ngIf="!showHint && type === 'expression'" (click)="showHint = true">
         Show hint
       </button>
       <p *ngIf="showHint">{{ expression.exampleSentences[0].sentence }}</p>

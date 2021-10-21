@@ -5,5 +5,6 @@ export const environment = {
   login: apiUrl + '/auth/login',
   expressions: apiUrl + '/expressions',
   tags: apiUrl + '/tags',
-  lessons: apiUrl + '/lessons'
+  lessons: apiUrl + '/lessons',
+  userKanji: apiUrl + '/user-kanji'
 };

@@ -1,7 +1,8 @@
-import { CardFlipState } from './../../models/custom-types.model';
+import { CardFlipState, DataType } from './../../models/custom-types.model';
 import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { Expression, ExpressionInitializer } from 'src/app/models/expression.model';
 import { CardDifficultyLevel, FetchedDataState } from 'src/app/models/custom-types.model';
+import { emptyUserKanji, UserKanji } from 'src/app/models/user-kanji.model';
 
 @Component({
   selector: 'app-expression-card',
@@ -11,6 +12,8 @@ import { CardDifficultyLevel, FetchedDataState } from 'src/app/models/custom-typ
 export class ExpressionCardComponent implements OnInit, OnChanges {
   @Input() expression: Expression = new ExpressionInitializer();
   @Input() fetchedDataState: FetchedDataState = 'init';
+  @Input() userKanji: UserKanji = emptyUserKanji;
+  @Input() type: DataType = 'expression';
   @Output() difficulty = new EventEmitter();
 
   public cardFlipState: CardFlipState = 'front';
