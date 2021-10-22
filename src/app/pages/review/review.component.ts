@@ -78,7 +78,6 @@ export class ReviewComponent implements OnInit {
     this.currentIndex = 0;
     this.userKanjiService.filterUserKanji(json).subscribe(res => {
       if (res.length > 0) {
-        console.log(res)
         this.userKanjis = res;
         this.total = this.userKanjis.length;
         this.currentUserKanji = this.userKanjis[this.currentIndex];
@@ -95,7 +94,11 @@ export class ReviewComponent implements OnInit {
     this.updateExpressionDifficulty(newDifficultyLevel);
     if (this.currentIndex < this.total - 1) {
       this.currentIndex += 1;
-      this.currentExpression = this.expressions[this.currentIndex];
+      if (this.type === 'expression') {
+        this.currentExpression = this.expressions[this.currentIndex];
+      } else if (this.type === 'user-kanji') {
+        this.currentUserKanji = this.userKanjis[this.currentIndex];
+      }
     } else {
       console.log('finished')
     }
@@ -111,12 +114,17 @@ export class ReviewComponent implements OnInit {
     } else if (newDifficultyLevel === 'OK') {
       updatedDifficulty = currentDifficulty - 1 as Difficulty;
     }
-    const updateExpression: UpdateExpressionDto = { difficulty: updatedDifficulty }
-    this.expressionsService.update(this.currentExpression._id, updateExpression).subscribe(res => {
-      //this.snackBar.open('Difficulty updaded', 'OK', { duration: 3000 })
-    }, err => {
-      this.snackBar.open('Difficulty not updated', err.error.message, { duration: 3000 })
-    })
+    if (this.type === 'expression') {
+      const updateExpression: UpdateExpressionDto = { difficulty: updatedDifficulty }
+      this.expressionsService.update(this.currentExpression._id, updateExpression).subscribe(res => {
+        //this.snackBar.open('Difficulty updaded', 'OK', { duration: 3000 })
+      }, err => {
+        this.snackBar.open('Difficulty not updated', err.error.message, { duration: 3000 })
+      })
+    } else if (this.type === 'user-kanji'){
+      console.log('update user kanji')
+    }
+
   }
 
 }

@@ -35,6 +35,6 @@ export class SelectValuesService {
   }
 
   getDefaultDataTypeValue(): DataType {
-    return this.getDataType()[0].value;
+    return this.getDataType()[1].value;
   }
 }

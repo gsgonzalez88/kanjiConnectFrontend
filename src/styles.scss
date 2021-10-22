@@ -51,6 +51,12 @@ ul {
   margin: 0;
 }
 
+.inline-list{
+  li {
+    display: inline;
+  }
+}
+
 a {
   text-decoration: none;
   font-weight: bold;

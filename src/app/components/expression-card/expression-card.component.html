@@ -4,27 +4,57 @@
     <h3>{{ type === 'expression' ? expression.word : userKanji.kanji.kanji }}</h3>
     <div>
       <button mat-stroked-button color="primary"
-              *ngIf="!showHint && type === 'expression'" (click)="showHint = true">
+              *ngIf="!showHint" (click)="showHint = true">
         Show hint
       </button>
-      <p *ngIf="showHint">{{ expression.exampleSentences[0].sentence }}</p>
+      <p *ngIf="showHint">{{ hint }}</p>
     </div>
     <app-main-button (click)="cardFlipState = 'back'" text="Show reverse"></app-main-button>
   </div>
   <!--CARD REVERSE-->
   <div *ngIf="cardFlipState === 'back'" class="card back">
-    <h4>{{ expression.word }}</h4>
-    <p>{{ expression.reading }}</p>
-    <ul>
-      <li *ngFor="let meaning of expression.englishMeaning">
-        {{ meaning }}
-      </li>
-    </ul>
-    <ul>
-      <li *ngFor="let sentence of expression.exampleSentences">
-        {{ sentence.sentence }}
-      </li>
-    </ul>
+    <div *ngIf="type === 'expression'">
+      <h4>{{ expression.word }}</h4>
+      <p>{{ expression.reading }}</p>
+      <ul>
+        <li *ngFor="let meaning of expression.englishMeaning">
+          {{ meaning }}
+        </li>
+      </ul>
+      <ul>
+        <li *ngFor="let sentence of expression.exampleSentences">
+          {{ sentence.sentence }}
+        </li>
+      </ul>
+    </div>
+    <div *ngIf="type === 'user-kanji'" class="card back">
+      <h4>{{ userKanji.kanji.kanji }}</h4>
+      <ul class="inline-list">
+        <li>On readings: </li>
+        <li *ngFor="let onReading of userKanji.kanji.on_readings; let i = index">
+          {{ onReading + (i !== userKanji.kanji.on_readings.length - 1 ? ', ' : '')}}
+        </li>
+      </ul>
+      <ul class="inline-list">
+        <li>Kun readings: </li>
+        <li *ngFor="let kunReading of userKanji.kanji.kun_readings; let i = index">
+          {{ kunReading + (i !== userKanji.kanji.kun_readings.length - 1 ? ', ' : '')}}
+        </li>
+      </ul>
+      <ul class="inline-list">
+        <li>Meaning: </li>
+        <li *ngFor="let meaning of userKanji.kanji.meanings; let i = index">
+          {{ meaning + (i !== userKanji.kanji.meanings.length - 1 ? ', ' : '')}}
+        </li>
+      </ul>
+      <ul class="inline-list">
+        <li>Words: </li>
+        <li *ngFor="let expression of userKanji.expressions; let i = index">
+          {{ expression.word }} ({{ expression.reading }}){{i !== userKanji.expressions.length - 1 ? ', ' : ''}}
+        </li>
+      </ul>
+      <p>Jlpt: {{ userKanji.kanji.jlpt || 'none' }}</p>
+    </div>
     <div class="difficulty-section">
       <p>Difficulty: {{ expression.difficulty | difficulty }}</p>
       <div class="buttons-container">
