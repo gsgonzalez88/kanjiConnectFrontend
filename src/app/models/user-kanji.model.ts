@@ -1,4 +1,5 @@
 import { Jlpt } from 'src/app/models/custom-types.model';
+import { Card } from './card.model';
 import { Difficulty } from "./custom-types.model";
 import { Expression } from "./expression.model";
 import { emptyKanji, Kanji } from "./kanji.model";

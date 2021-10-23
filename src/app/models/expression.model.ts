@@ -1,3 +1,4 @@
+import { Card } from './card.model';
 import { Difficulty, Jlpt, Transitivity } from './custom-types.model';
 import { ExampleSentence } from "./example-sentence.model";
 
@@ -49,25 +50,26 @@ export interface FilterExpressionsDto {
   difficulty?: Difficulty;
 }
 
-export class ExpressionInitializer {
-  word = ''
-  reading = ''
-  englishMeaning = ['']
-  japaneseMeaning = ['']
-  exampleSentences = [{
+
+export const emptyExpression: Expression = {
+  word: '',
+  reading: '',
+  englishMeaning: [''],
+  japaneseMeaning: [''],
+  exampleSentences: [{
     sentence: '',
     source: '',
     link: '',
     _id: ''
-  }]
-  tags = ['']
-  lesson = ''
-  user = ''
-  kanjis = ['']
-  difficulty: Difficulty = 5
-  jlpt = null
-  transitivity = null
-  created = new Date()
-  updated = new Date()
-  _id = ''
+  }],
+  tags: [''],
+  lesson: '',
+  user: '',
+  kanjis: [''],
+  difficulty: 5,
+  jlpt: null,
+  transitivity: null,
+  created: new Date(),
+  updated: new Date(),
+  _id: ''
 }

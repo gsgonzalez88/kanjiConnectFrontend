@@ -10,6 +10,17 @@
   h4{
     font-size: 2em !important;
   }
+  li{
+    text-align: center;
+  }
+  .section-text{
+    color: grey;
+    font-size: 12px;
+  }
+  .color-text{
+    color: var(--main-color);
+    font-weight: bold;
+  }
 }
 
 .back{

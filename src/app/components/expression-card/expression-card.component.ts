@@ -1,9 +1,10 @@
 import { CardFlipState, DataType } from './../../models/custom-types.model';
 import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
-import { Expression, ExpressionInitializer } from 'src/app/models/expression.model';
+import { emptyExpression, Expression } from 'src/app/models/expression.model';
 import { CardDifficultyLevel, FetchedDataState } from 'src/app/models/custom-types.model';
-import { emptyUserKanji, UserKanji } from 'src/app/models/user-kanji.model';
+import { UserKanji } from 'src/app/models/user-kanji.model';
 import { ExpressionCardService } from './expression-card.service';
+import { emptyExpressionCard, ExpressionCard, UserKanjiCard } from 'src/app/models/card.model';
 
 @Component({
   selector: 'app-expression-card',
@@ -11,15 +12,14 @@ import { ExpressionCardService } from './expression-card.service';
   styleUrls: ['./expression-card.component.scss']
 })
 export class ExpressionCardComponent implements OnInit, OnChanges {
-  @Input() expression: Expression = new ExpressionInitializer();
+  @Input() reviewData: Expression | UserKanji = emptyExpression;
   @Input() fetchedDataState: FetchedDataState = 'init';
-  @Input() userKanji: UserKanji = emptyUserKanji;
   @Input() type: DataType = 'expression';
   @Output() difficulty = new EventEmitter();
 
   public cardFlipState: CardFlipState = 'front';
   public showHint: boolean = false;
-  public hint: string = '';
+  public cardData: ExpressionCard | UserKanjiCard = emptyExpressionCard;
 
   constructor(private expressionCardService: ExpressionCardService) { }
 
@@ -28,15 +28,9 @@ export class ExpressionCardComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes)
-    if (changes.expression) {
+    if (changes.reviewData) {
+      this.cardData = this.expressionCardService.generateCardData(this.type, this.reviewData);
       this.cardFlipState = 'front';
-      this.hint = this.expressionCardService.generateHint('expression', this.expression.exampleSentences[0].sentence);
-      this.showHint = false;
-    } else if (changes.userKanji) {
-      console.log(this.userKanji)
-      this.cardFlipState = 'front';
-      this.hint = this.expressionCardService.generateHint('user-kanji', this.userKanji.expressions);
       this.showHint = false;
     }
   }
@@ -44,5 +38,4 @@ export class ExpressionCardComponent implements OnInit, OnChanges {
   sendDifficulty(newDifficultyLevel: CardDifficultyLevel) {
     this.difficulty.emit(newDifficultyLevel);
   }
-
 }

@@ -1,14 +1,14 @@
+import { emptyExpression } from './../../models/expression.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DataType, Difficulty } from './../../models/custom-types.model';
 import { Component, OnInit } from '@angular/core';
 import { ExpressionsService } from 'src/app/services/expressions.service';
-import { Expression, ExpressionInitializer, FilterExpressionsDto, UpdateExpressionDto } from 'src/app/models/expression.model';
+import { Expression, FilterExpressionsDto, UpdateExpressionDto } from 'src/app/models/expression.model';
 import { TagsService } from './../../services/tags.service';
 import { Tag } from 'src/app/models/tag.model';
-import { Lesson } from 'src/app/models/lesson.model';
 import { CardFilter } from 'src/app/models/card-filter.model';
 import { CardDifficultyLevel, FetchedDataState } from 'src/app/models/custom-types.model';
-import { emptyUserKanji, UserKanji, UserKanjiFilter } from 'src/app/models/user-kanji.model';
+import { UserKanji, UserKanjiFilter } from 'src/app/models/user-kanji.model';
 import { UserKanjiService } from 'src/app/services/user-kanji.service';
 
 @Component({
@@ -17,17 +17,15 @@ import { UserKanjiService } from 'src/app/services/user-kanji.service';
   styleUrls: ['./review.component.scss']
 })
 export class ReviewComponent implements OnInit {
-  public expressions: Expression[] = [];
-  public currentExpression: Expression = new ExpressionInitializer();
-  public userKanjis: UserKanji[] = [];
-  public currentUserKanji: UserKanji = emptyUserKanji;
+  public currentReviewData: Expression | UserKanji = emptyExpression;
+  public reviewDataList: Expression[] | UserKanji[] = [];
   public total: number = 0;
   public currentIndex: number = 0;
   public tags: Tag[] = [];
-  public lessons: Lesson[] = [];
   public fetchedDataState: FetchedDataState = 'init';
   public type: DataType = 'expression';
   private user = '61478fb9b2cfde16186509b5';
+  private wasFirstSnackShown = false;
 
   constructor(private expressionsService: ExpressionsService,
               private userKanjiService: UserKanjiService,
@@ -44,68 +42,58 @@ export class ReviewComponent implements OnInit {
     )
   }
 
-  getExpressions(json: FilterExpressionsDto) {
+  getReviewData(json: FilterExpressionsDto | UserKanjiFilter) {
     this.fetchedDataState = 'loading';
     this.currentIndex = 0;
-    this.expressionsService.filterExpressions(json).subscribe(res => {
-      if (res.length > 0) {
-        this.expressions = res;
-        this.total = this.expressions.length;
-        this.currentExpression = this.expressions[this.currentIndex];
-        this.fetchedDataState = 'loaded';
-      } else {
+    if (this.type === 'expression') {
+      this.expressionsService.filterExpressions(json).subscribe(res => {
+        if (res.length > 0) {
+          this.reviewDataList = res;
+          this.total = this.reviewDataList.length;
+          this.currentReviewData = this.reviewDataList[this.currentIndex];
+          this.fetchedDataState = 'loaded';
+        } else {
+          this.fetchedDataState = 'no data';
+        }
+      }, err => {
         this.fetchedDataState = 'no data';
-      }
-    }, err => {
-      this.fetchedDataState = 'no data';
-    })
-  }
-
-  setFilter(event: CardFilter) {
-    if (event.type === 'expression') {
-      delete event.type;
-      this.type = 'expression';
-      this.getExpressions(event)
-    } else if (event.type === 'user-kanji') {
-      delete event.type;
-      this.type = 'user-kanji';
-      this.getUserKanji(event);
+      })
+    } else if (this.type === 'user-kanji') {
+      this.userKanjiService.filterUserKanji(json).subscribe(res => {
+        if (res.length > 0) {
+          this.reviewDataList = res;
+          this.total = this.reviewDataList.length;
+          this.currentReviewData = this.reviewDataList[this.currentIndex];
+          this.fetchedDataState = 'loaded';
+        } else {
+          this.fetchedDataState = 'no data';
+        }
+      }, err => {
+        this.fetchedDataState = 'no data';
+      })
     }
   }
 
-  getUserKanji(json: UserKanjiFilter) {
-    this.fetchedDataState = 'loading';
-    this.currentIndex = 0;
-    this.userKanjiService.filterUserKanji(json).subscribe(res => {
-      if (res.length > 0) {
-        this.userKanjis = res;
-        this.total = this.userKanjis.length;
-        this.currentUserKanji = this.userKanjis[this.currentIndex];
-        this.fetchedDataState = 'loaded';
-      } else {
-        this.fetchedDataState = 'no data';
-      }
-    }, err => {
-      this.fetchedDataState = 'no data';
-    })
+  setFilter(event: CardFilter) {
+    if (event.type) {
+      this.type = event.type;
+      delete event.type;
+      this.getReviewData(event);
+    }
   }
 
   setDifficulty(newDifficultyLevel: CardDifficultyLevel) {
     this.updateExpressionDifficulty(newDifficultyLevel);
     if (this.currentIndex < this.total - 1) {
       this.currentIndex += 1;
-      if (this.type === 'expression') {
-        this.currentExpression = this.expressions[this.currentIndex];
-      } else if (this.type === 'user-kanji') {
-        this.currentUserKanji = this.userKanjis[this.currentIndex];
-      }
+      this.currentReviewData = this.reviewDataList[this.currentIndex];
     } else {
       console.log('finished')
     }
   }
 
   updateExpressionDifficulty(newDifficultyLevel: CardDifficultyLevel) {
-    const currentDifficulty: Difficulty = this.currentExpression.difficulty;
+    const currentDifficulty: Difficulty = this.currentReviewData.difficulty;
     let updatedDifficulty: Difficulty = 0;
     if (newDifficultyLevel === 'easy') {
       updatedDifficulty = currentDifficulty - 2 as Difficulty;
@@ -114,12 +102,16 @@ export class ReviewComponent implements OnInit {
     } else if (newDifficultyLevel === 'OK') {
       updatedDifficulty = currentDifficulty - 1 as Difficulty;
     }
+
+    const updateExpression: UpdateExpressionDto = { difficulty: updatedDifficulty }
     if (this.type === 'expression') {
-      const updateExpression: UpdateExpressionDto = { difficulty: updatedDifficulty }
-      this.expressionsService.update(this.currentExpression._id, updateExpression).subscribe(res => {
-        //this.snackBar.open('Difficulty updaded', 'OK', { duration: 3000 })
+      this.expressionsService.update(this.currentReviewData._id, updateExpression).subscribe(res => {
+        //this.snackBar.open('Difficulty will be updated', 'OK', { duration: 3000 })
       }, err => {
-        this.snackBar.open('Difficulty not updated', err.error.message, { duration: 3000 })
+        if (!this.wasFirstSnackShown) {
+          this.snackBar.open(`Difficulty won't be updated`, err.error.message, { duration: 3000 })
+          this.wasFirstSnackShown = true;
+        }
       })
     } else if (this.type === 'user-kanji'){
       console.log('update user kanji')

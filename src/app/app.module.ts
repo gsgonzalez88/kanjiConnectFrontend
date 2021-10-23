@@ -46,6 +46,8 @@ import { IconButtonComponent } from './elements/buttons/icon-button/icon-button.
 import { JlptSelectComponent } from './elements/selects/jlpt-select/jlpt-select.component';
 import { TransitivitySelectComponent } from './elements/selects/transitivity-select/transitivity-select.component';
 import { LoadingComponent } from './components/loading/loading.component';
+import { ExpressionCastPipe } from './pipes/expression-cast.pipe';
+import { UserKanjiCastPipe } from './pipes/user-kanji-cast.pipe';
 
 @NgModule({
   declarations: [
@@ -76,7 +78,9 @@ import { LoadingComponent } from './components/loading/loading.component';
     IconButtonComponent,
     JlptSelectComponent,
     TransitivitySelectComponent,
-    LoadingComponent
+    LoadingComponent,
+    ExpressionCastPipe,
+    UserKanjiCastPipe
   ],
   imports: [
     BrowserModule,
