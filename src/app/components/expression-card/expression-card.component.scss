@@ -8,10 +8,7 @@
     font-size: 3em !important;
   }
   h4{
-    font-size: 2em !important;
-  }
-  li{
-    text-align: center;
+    font-size: 1.8em !important;
   }
   .section-text{
     color: grey;
@@ -24,6 +21,19 @@
 }
 
 .back{
+  .card-detail{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 60%;
+    @media(max-width:  768px) {
+      width: 100%;
+    }
+    p {
+      margin: 0 !important;
+    }
+  }
   .difficulty-section{
     text-align: center;
     .buttons-container{

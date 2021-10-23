@@ -15,7 +15,7 @@
   <div *ngIf="cardFlipState === 'back'" class="card back">
     <h4>{{ cardData.main }}</h4>
     <!-- EXPRESSION -->
-    <ng-container *ngIf="type === 'expression'">
+    <div *ngIf="type === 'expression'" class="card-detail">
       <p><span class="section-text">Reading: </span>{{ (cardData | expressionCast).reading }}</p>
       <ul>
         <li class="section-text">Meaning:</li>
@@ -35,9 +35,9 @@
       <p *ngIf="(cardData | expressionCast).transitivity">
         <span class="section-text">Transitivity: </span>{{ (cardData | expressionCast).transitivity }}
       </p>
-    </ng-container>
+    </div>
     <!-- USER-KANJI -->
-    <ng-container *ngIf="type === 'user-kanji'">
+    <div *ngIf="type === 'user-kanji'" class="card-detail">
       <p><span class="section-text">Kun readings:</span> {{ (cardData | userKanjiCast).kunReadings }}</p>
       <p><span class="section-text">On readings:</span> {{ (cardData | userKanjiCast).onReadings }}</p>
       <p><span class="section-text">Meanings:</span> {{ (cardData | userKanjiCast).meanings }}</p>
@@ -47,7 +47,7 @@
           {{expression.word}} ({{expression.reading}})
         </li>
       </ul>
-    </ng-container>
+    </div>
     <!-- DIFFICULTY -->
     <div class="difficulty-section">
       <p *ngIf="cardData.jlpt">Jlpt: <span class="color-text">{{ cardData.jlpt }}</span></p>
