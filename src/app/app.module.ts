@@ -49,6 +49,7 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { ExpressionCastPipe } from './pipes/expression-cast.pipe';
 import { UserKanjiCastPipe } from './pipes/user-kanji-cast.pipe';
 import { DifficultySelectComponent } from './elements/selects/difficulty-select/difficulty-select.component';
+import { SourceSelectComponent } from './elements/selects/source-select/source-select.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { DifficultySelectComponent } from './elements/selects/difficulty-select/
     LoadingComponent,
     ExpressionCastPipe,
     UserKanjiCastPipe,
-    DifficultySelectComponent
+    DifficultySelectComponent,
+    SourceSelectComponent
   ],
   imports: [
     BrowserModule,

@@ -33,6 +33,9 @@ export class CardFilterService {
     if (formValues.jlpt) {
       cardFilter.jlpt = formValues.jlpt;
     }
+    if (formValues.source) {
+      cardFilter.source = formValues.source;
+    }
     /*if (formValues.type === 'expression' && formValues.transitivity) {
       cardFilter.transitivity = formValues.transitivity;
     }*/

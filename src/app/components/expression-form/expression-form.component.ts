@@ -49,8 +49,7 @@ export class ExpressionFormComponent implements OnInit {
     if (formArray === 'exampleSentences') {
       form.push(new FormGroup({
         sentence: new FormControl(''),
-          source: new FormControl(''),
-          link: new FormControl('')
+        source: new FormControl(''),
       }))
     } else {
       form.push(new FormGroup({ meaning: new FormControl( content ? content : '' ) }))
@@ -121,8 +120,7 @@ export class ExpressionFormComponent implements OnInit {
       exampleSentences: this.formBuilder.array([
         new FormGroup({
           sentence: new FormControl(''),
-          source: new FormControl(''),
-          link: new FormControl('')
+          source: new FormControl('')
         })
       ]),
       jlpt: [null],

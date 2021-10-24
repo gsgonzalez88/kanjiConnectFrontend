@@ -22,6 +22,7 @@ export class CardFilterComponent implements OnInit {
     this.filterForm = this.formBuilder.group({
       type: [this.selectValuesService.getDefaultDataTypeValue()],
       lesson: [''],
+      source: [''],
       jlpt: null,
       transitivity: null,
       difficulty: null,
@@ -35,7 +36,6 @@ export class CardFilterComponent implements OnInit {
 
   sendFilter() {
     const filter = this.cardFilterService.generateFilter(this.filterForm.value);
-    console.log(filter)
     this.panelOpenState = false;
     this.filter.emit(filter);
   }

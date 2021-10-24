@@ -36,6 +36,7 @@ form{
     flex-wrap: nowrap;
     box-sizing: content-box;
     .form-fields{
+      flex-grow: 1;
       mat-form-field{
         width: 100%;
       }

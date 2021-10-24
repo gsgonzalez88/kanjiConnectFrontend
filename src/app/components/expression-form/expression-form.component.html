@@ -69,6 +69,10 @@
         </div>
       </ng-container>
     </section>
+    <!--LESSON-->
+    <div class="form-section-full">
+      <app-lessons-select formControlName="lesson"></app-lessons-select>
+    </div>
     <!--EXAMPLE SENTENCES-->
     <section formArrayName="exampleSentences">
       <ng-container *ngFor="let sentence of exampleSentences.controls; let i = index">
@@ -79,14 +83,11 @@
               <mat-label>Example Sentence</mat-label>
               <input matInput formControlName="sentence" id="{{'name' + i}}" name="sentence">
             </mat-form-field>
-            <mat-form-field>
-              <mat-label>Source</mat-label>
-              <input matInput formControlName="source" id="{{'name' + i}}" name="source">
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Link</mat-label>
-              <input matInput formControlName="link" id="{{'name' + i}}" name="link">
-            </mat-form-field>
+            <div class="source-select">
+              <app-source-select [lessonId]="form.get('lesson')?.value"
+                                formControlName="source" id="{{'name' + i}}" name="source">
+              </app-source-select>
+            </div>
           </div>
           <div class="buttons">
             <button mat-icon-button color="primary"
@@ -111,9 +112,6 @@
         <div class="select">
           <app-transitivity-select formControlName="transitivity"></app-transitivity-select>
         </div>
-      </div>
-      <div class="form-section-full">
-        <app-lessons-select formControlName="lesson"></app-lessons-select>
       </div>
       <app-tags-select formControlName="tags"></app-tags-select>
       <div class="m-s-td form-buttons-container">
