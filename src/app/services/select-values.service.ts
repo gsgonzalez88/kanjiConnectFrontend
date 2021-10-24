@@ -1,4 +1,4 @@
-import { Jlpt, Transitivity, DataType } from './../models/custom-types.model';
+import { Jlpt, Transitivity, DataType, DifficultyText, Difficulty } from './../models/custom-types.model';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -35,6 +35,17 @@ export class SelectValuesService {
   }
 
   getDefaultDataTypeValue(): DataType {
-    return this.getDataType()[1].value;
+    return this.getDataType()[0].value;
+  }
+
+  getDifficulty(): { name: DifficultyText | '', value: Difficulty[] | null}[] {
+    return [
+      { name: '', value: null },
+      { name: 'Very hard', value: [10, 9] },
+      { name: 'Hard', value: [8, 7] },
+      { name: 'Medium', value: [6, 5, 4] },
+      { name: 'Easy', value: [3, 2] },
+      { name: 'Very easy', value: [1, 0] },
+    ]
   }
 }

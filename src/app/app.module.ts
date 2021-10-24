@@ -48,6 +48,7 @@ import { TransitivitySelectComponent } from './elements/selects/transitivity-sel
 import { LoadingComponent } from './components/loading/loading.component';
 import { ExpressionCastPipe } from './pipes/expression-cast.pipe';
 import { UserKanjiCastPipe } from './pipes/user-kanji-cast.pipe';
+import { DifficultySelectComponent } from './elements/selects/difficulty-select/difficulty-select.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { UserKanjiCastPipe } from './pipes/user-kanji-cast.pipe';
     TransitivitySelectComponent,
     LoadingComponent,
     ExpressionCastPipe,
-    UserKanjiCastPipe
+    UserKanjiCastPipe,
+    DifficultySelectComponent
   ],
   imports: [
     BrowserModule,

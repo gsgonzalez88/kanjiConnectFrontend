@@ -1,11 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { Difficulty, DifficultyText } from '../models/custom-types.model';
 
 @Pipe({
   name: 'difficulty'
 })
 export class DifficultyPipe implements PipeTransform {
 
-  transform(difficulty: number): 'Very hard' | 'Hard' | 'Medium' | 'Easy' | 'Very easy' | null {
+  transform(difficulty: Difficulty): DifficultyText | null {
     if (difficulty > 8) {
       return 'Very hard';
     } else if (difficulty === 7 || difficulty === 8) {

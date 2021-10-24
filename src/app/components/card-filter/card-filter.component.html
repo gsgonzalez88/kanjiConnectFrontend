@@ -15,6 +15,19 @@
         <app-lessons-select formControlName="lesson"></app-lessons-select>
       </div>
     </div>
+    <div class="select-container">
+      <div>
+        <app-jlpt-select formControlName="jlpt"></app-jlpt-select>
+      </div>
+      <div *ngIf="filterForm.get('type')?.value === 'expression'">
+        <app-transitivity-select formControlName="transitivity"></app-transitivity-select>
+      </div>
+    </div>
+    <div class="select-container">
+      <div>
+        <app-difficulty-select formControlName="difficulty"></app-difficulty-select>
+      </div>
+    </div>
     <div class="m-s-td">
       <app-tags-select formControlName="tags"></app-tags-select>
     </div>
