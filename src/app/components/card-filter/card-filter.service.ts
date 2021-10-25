@@ -36,9 +36,9 @@ export class CardFilterService {
     if (formValues.source) {
       cardFilter.source = formValues.source;
     }
-    /*if (formValues.type === 'expression' && formValues.transitivity) {
+    if (formValues.type === 'expression' && formValues.transitivity) {
       cardFilter.transitivity = formValues.transitivity;
-    }*/
+    }
     /*if (formValues.difficulty) {
       cardFilter.difficulty = formValues.difficulty;
     }*/

@@ -6,7 +6,11 @@
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Password</mat-label>
-      <input matInput [(ngModel)]="password" name="password" autocomplete="off">
+      <input matInput [(ngModel)]="password" name="password" autocomplete="off"
+              [type]="hide ? 'password' : 'text'">
+      <mat-icon matSuffix (click)="hide = !hide">
+        {{ hide ? 'visibility_off' : 'visibility'}}
+      </mat-icon>
     </mat-form-field>
     <app-main-button (click)="login()" type="submit" text="Login"></app-main-button>
   </form>
