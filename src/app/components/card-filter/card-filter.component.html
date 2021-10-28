@@ -24,9 +24,6 @@
       </div>
     </div>
     <div class="select-container">
-      <div>
-        <app-difficulty-select formControlName="difficulty"></app-difficulty-select>
-      </div>
       <div *ngIf="filterForm.get('type')?.value === 'expression'">
         <app-transitivity-select formControlName="transitivity"></app-transitivity-select>
       </div>

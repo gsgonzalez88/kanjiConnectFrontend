@@ -1,7 +1,7 @@
 <div class="container m-s-td">
-  <button mat-raised-button color="accent" class="m-s-rl"
+  <button class="tab-button" class="m-s-rl"
           (click)="navigate(pages[1])"
-          [disabled]="pages[1].active">
+          [disabled]="pages[2].active">
     Review
   </button>
   <button mat-raised-button color="accent" class="m-s-rl"
@@ -9,4 +9,5 @@
           [disabled]="pages[2].active">
     Upload
   </button>
+  <div class="tab-button"><a>Button</a></div>
 </div>
