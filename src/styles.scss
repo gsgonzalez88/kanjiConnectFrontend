@@ -6,9 +6,11 @@
   --xl: 1440px;
   --main-color: #673ab7;
   --medium-main-color: #b5a7cf;
-  --light-main-color: #f1f1f1;
+  --light-main-color: #fafafa;
   --accent-color: #ffd74a;
   --dark-color: #333333;
+  --background-one: #6D696A;
+  --background-two: #d1cacb;
 }
 
 .media-width{
@@ -21,14 +23,18 @@
   }
 }
 
+.page-container{
+  border-top-right-radius: 4px;
+  margin: 0 1em;
+}
+
 mat-form-field{
   margin-right: 1em;
 }
 
 body {
-  margin: 1em !important;
-  background-color: var(--light-main-color);
   box-sizing: border-box;
+  background-color: var(--light-main-color);
 }
 
 h1 {
@@ -59,7 +65,7 @@ ul {
 
 a {
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 500;
 }
 
 .form-buttons-container{

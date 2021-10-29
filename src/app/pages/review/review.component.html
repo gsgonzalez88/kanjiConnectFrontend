@@ -1,18 +1,21 @@
-<div class="card-container media-width">
-  <app-card-filter
-    [tags]="tags"
-    (filter)="setFilter($event)">
-  </app-card-filter>
-  <app-review-counter
-    [total]="total"
-    [currentIndex]="currentIndex"
-    [fetchedDataState]="fetchedDataState">
-  </app-review-counter>
-  <app-expression-card
-    [reviewData]="currentReviewData"
-    [type]="type"
-    (difficulty)="setDifficulty($event)"
-    [fetchedDataState]="fetchedDataState">
-  </app-expression-card>
+<div class="page-container">
+  <div class="card-container media-width">
+    <app-card-filter
+      [tags]="tags"
+      (filter)="setFilter($event)">
+    </app-card-filter>
+    <app-review-counter
+      [total]="total"
+      [currentIndex]="currentIndex"
+      [fetchedDataState]="fetchedDataState">
+    </app-review-counter>
+    <app-expression-card
+      [reviewData]="currentReviewData"
+      [type]="type"
+      (difficulty)="setDifficulty($event)"
+      [fetchedDataState]="fetchedDataState">
+    </app-expression-card>
+  </div>
 </div>
+
 

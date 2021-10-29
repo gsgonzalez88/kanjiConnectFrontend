@@ -50,6 +50,7 @@ import { ExpressionCastPipe } from './pipes/expression-cast.pipe';
 import { UserKanjiCastPipe } from './pipes/user-kanji-cast.pipe';
 import { DifficultySelectComponent } from './elements/selects/difficulty-select/difficulty-select.component';
 import { SourceSelectComponent } from './elements/selects/source-select/source-select.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { SourceSelectComponent } from './elements/selects/source-select/source-s
     ExpressionCastPipe,
     UserKanjiCastPipe,
     DifficultySelectComponent,
-    SourceSelectComponent
+    SourceSelectComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
