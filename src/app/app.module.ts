@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,7 +20,7 @@ import { TimeInterceptor } from './interceptors/time.interceptor';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { LoginComponent } from './pages/login/login.component';
+import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ReviewComponent } from './pages/review/review.component';
@@ -104,7 +105,8 @@ import { FooterComponent } from './components/footer/footer.component';
     MatIconModule,
     MatSnackBarModule,
     MatDividerModule,
-    MatChipsModule
+    MatChipsModule,
+    MatDialogModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: TimeInterceptor, multi: true

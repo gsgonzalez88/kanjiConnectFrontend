@@ -1,11 +1,12 @@
 .container{
   text-align: center;
+  margin: 1em;
   .upper-anchors{
     display: flex;
     justify-content: flex-end;
   }
   p{
     color: var(--main-color);
-    margin-top: 0.7em !important;
+    margin-top: 0.2em !important;
   }
 }

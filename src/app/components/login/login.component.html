@@ -1,0 +1,23 @@
+<div class="container">
+  <h3>Login with email and password</h3>
+  <form>
+    <div>
+        <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput [(ngModel)]="email" name="email" autofocus>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input matInput [(ngModel)]="password" name="password" autocomplete="off"
+                [type]="hide ? 'password' : 'text'">
+        <mat-icon matSuffix (click)="hide = !hide">
+          {{ hide ? 'visibility_off' : 'visibility'}}
+        </mat-icon>
+      </mat-form-field>
+    </div>
+    <div class="form-buttons-container">
+      <button mat-stroked-button color="primary" (click)="close()" type="button">Cancel</button>
+      <button mat-raised-button color="primary" (click)="login()" type="submit">Login</button>
+    </div>
+  </form>
+</div>
