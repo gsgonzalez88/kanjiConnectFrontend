@@ -1,15 +1,15 @@
-import { CardFlipState, DataType } from './../../models/custom-types.model';
+import { CardFlipState, DataType, Difficulty } from '../../models/custom-types.model';
 import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { emptyExpression, Expression } from 'src/app/models/expression.model';
-import { CardDifficultyLevel, FetchedDataState } from 'src/app/models/custom-types.model';
+import { FetchedDataState } from 'src/app/models/custom-types.model';
 import { UserKanji } from 'src/app/models/user-kanji.model';
-import { ExpressionCardService } from './expression-card.service';
+import { ExpressionCardService } from './review-card.service';
 import { emptyExpressionCard, ExpressionCard, UserKanjiCard } from 'src/app/models/card.model';
 
 @Component({
-  selector: 'app-expression-card',
-  templateUrl: './expression-card.component.html',
-  styleUrls: ['./expression-card.component.scss']
+  selector: 'app-review-card',
+  templateUrl: './review-card.component.html',
+  styleUrls: ['./review-card.component.scss']
 })
 export class ExpressionCardComponent implements OnInit, OnChanges {
   @Input() reviewData: Expression | UserKanji = emptyExpression;
@@ -35,7 +35,7 @@ export class ExpressionCardComponent implements OnInit, OnChanges {
     }
   }
 
-  sendDifficulty(newDifficultyLevel: CardDifficultyLevel) {
-    this.difficulty.emit(newDifficultyLevel);
+  sendUpdatedDifficulty(updatedDifficulty: Difficulty) {
+    this.difficulty.emit(updatedDifficulty);
   }
 }

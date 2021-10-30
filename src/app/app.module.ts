@@ -27,7 +27,7 @@ import { ReviewComponent } from './pages/review/review.component';
 import { ExpressionsComponent } from './pages/expressions/expressions.component';
 import { KanjisComponent } from './pages/kanjis/kanjis.component';
 import { SearchComponent } from './pages/search/search.component';
-import { ExpressionCardComponent } from './components/expression-card/expression-card.component';
+import { ExpressionCardComponent } from './components/review-card/review-card.component';
 import { ReviewCounterComponent } from './components/review-counter/review-counter.component';
 import { DifficultyPipe } from './pipes/difficulty.pipe';
 import { CardFilterComponent } from './components/card-filter/card-filter.component';
@@ -52,6 +52,7 @@ import { UserKanjiCastPipe } from './pipes/user-kanji-cast.pipe';
 import { DifficultySelectComponent } from './elements/selects/difficulty-select/difficulty-select.component';
 import { SourceSelectComponent } from './elements/selects/source-select/source-select.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { DifficultyButtonsComponent } from './components/difficulty-buttons/difficulty-buttons.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +88,8 @@ import { FooterComponent } from './components/footer/footer.component';
     UserKanjiCastPipe,
     DifficultySelectComponent,
     SourceSelectComponent,
-    FooterComponent
+    FooterComponent,
+    DifficultyButtonsComponent
   ],
   imports: [
     BrowserModule,

@@ -7,7 +7,7 @@ import { Expression, FilterExpressionsDto, UpdateExpressionDto } from 'src/app/m
 import { TagsService } from './../../services/tags.service';
 import { Tag } from 'src/app/models/tag.model';
 import { CardFilter } from 'src/app/models/card-filter.model';
-import { CardDifficultyLevel, FetchedDataState } from 'src/app/models/custom-types.model';
+import { FetchedDataState } from 'src/app/models/custom-types.model';
 import { UserKanji, UserKanjiFilter } from 'src/app/models/user-kanji.model';
 import { UserKanjiService } from 'src/app/services/user-kanji.service';
 
@@ -82,8 +82,8 @@ export class ReviewComponent implements OnInit {
     }
   }
 
-  setDifficulty(newDifficultyLevel: CardDifficultyLevel) {
-    this.updateExpressionDifficulty(newDifficultyLevel);
+  setDifficulty(updatedDifficulty: Difficulty) {
+    this.updateExpressionDifficulty(updatedDifficulty);
     if (this.currentIndex < this.total - 1) {
       this.currentIndex += 1;
       this.currentReviewData = this.reviewDataList[this.currentIndex];
@@ -92,18 +92,8 @@ export class ReviewComponent implements OnInit {
     }
   }
 
-  updateExpressionDifficulty(newDifficultyLevel: CardDifficultyLevel) {
-    const currentDifficulty: Difficulty = this.currentReviewData.difficulty;
-    let updatedDifficulty: Difficulty = 0;
-    if (newDifficultyLevel === 'easy') {
-      updatedDifficulty = currentDifficulty - 2 as Difficulty;
-    } else if (newDifficultyLevel === 'hard') {
-      updatedDifficulty = currentDifficulty + 1 as Difficulty;
-    } else if (newDifficultyLevel === 'OK') {
-      updatedDifficulty = currentDifficulty - 1 as Difficulty;
-    }
-
-    const updateExpression: UpdateExpressionDto = { difficulty: updatedDifficulty }
+  updateExpressionDifficulty(updatedDifficulty: Difficulty) {
+    const updateExpression: UpdateExpressionDto = { difficulty: updatedDifficulty };
     if (this.type === 'expression') {
       this.expressionsService.update(this.currentReviewData._id, updateExpression).subscribe(res => {
         //this.snackBar.open('Difficulty will be updated', 'OK', { duration: 3000 })

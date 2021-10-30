@@ -52,17 +52,8 @@
     <div class="difficulty-section">
       <p *ngIf="cardData.jlpt">Jlpt: <span class="color-text">{{ cardData.jlpt }}</span></p>
       <p>Difficulty: <span class="color-text">{{ cardData.difficulty| difficulty }}</span></p>
-      <div class="buttons-container">
-        <button mat-flat-button color="warn" (click)="sendDifficulty('hard')">
-          Hard
-        </button>
-        <button mat-flat-button color="primary" (click)="sendDifficulty('OK')" class="m-s-rl">
-          OK
-        </button>
-        <button mat-flat-button color="accent" (click)="sendDifficulty('easy')">
-          Easy
-        </button>
-      </div>
+      <app-difficulty-buttons [difficulty]="cardData.difficulty"
+                              (updatedDifficulty)="sendUpdatedDifficulty($event)"></app-difficulty-buttons>
     </div>
   </div>
 </mat-card>
