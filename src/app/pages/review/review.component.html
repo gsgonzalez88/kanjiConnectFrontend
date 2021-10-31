@@ -4,17 +4,6 @@
       [tags]="tags"
       (filter)="setFilter($event)">
     </app-card-filter>
-    <app-review-counter
-      [total]="total"
-      [currentIndex]="currentIndex"
-      [fetchedDataState]="fetchedDataState">
-    </app-review-counter>
-    <app-review-card
-      [reviewData]="currentReviewData"
-      [type]="type"
-      (difficulty)="setDifficulty($event)"
-      [fetchedDataState]="fetchedDataState">
-    </app-review-card>
   </div>
 </div>
 

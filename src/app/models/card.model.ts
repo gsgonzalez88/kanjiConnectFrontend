@@ -5,7 +5,8 @@ export interface Card {
   main: string,
   hint: string,
   jlpt: Jlpt,
-  difficulty: Difficulty
+  difficulty: Difficulty,
+  _id: string
 }
 
 export interface ExpressionCard extends Card {
@@ -35,5 +36,6 @@ export const emptyExpressionCard: ExpressionCard = {
   exampleSentences: [],
   jlpt: null,
   difficulty: 5,
-  transitivity: null
+  transitivity: null,
+  _id: ''
 }

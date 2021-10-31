@@ -1,15 +1,17 @@
+import { ReviewCardPopupComponent } from './../../components/review-card-popup/review-card-popup.component';
 import { emptyExpression } from './../../models/expression.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { DataType, Difficulty } from './../../models/custom-types.model';
+import { DataType } from './../../models/custom-types.model';
 import { Component, OnInit } from '@angular/core';
 import { ExpressionsService } from 'src/app/services/expressions.service';
-import { Expression, FilterExpressionsDto, UpdateExpressionDto } from 'src/app/models/expression.model';
+import { Expression, FilterExpressionsDto } from 'src/app/models/expression.model';
 import { TagsService } from './../../services/tags.service';
 import { Tag } from 'src/app/models/tag.model';
 import { CardFilter } from 'src/app/models/card-filter.model';
 import { FetchedDataState } from 'src/app/models/custom-types.model';
 import { UserKanji, UserKanjiFilter } from 'src/app/models/user-kanji.model';
 import { UserKanjiService } from 'src/app/services/user-kanji.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-review',
@@ -30,10 +32,23 @@ export class ReviewComponent implements OnInit {
   constructor(private expressionsService: ExpressionsService,
               private userKanjiService: UserKanjiService,
               private tagsService: TagsService,
-              private snackBar: MatSnackBar) { }
+              private snackBar: MatSnackBar,
+              private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getTags();
+  }
+
+  openDialog(reviewData: Expression[] | UserKanji[], type: DataType): void {
+    const dialogRef = this.dialog.open(ReviewCardPopupComponent, {
+      width: '400px',
+      height: '80vh',
+      data: { reviewData, type }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 
   getTags() {
@@ -52,6 +67,7 @@ export class ReviewComponent implements OnInit {
           this.total = this.reviewDataList.length;
           this.currentReviewData = this.reviewDataList[this.currentIndex];
           this.fetchedDataState = 'loaded';
+          this.openDialog(this.reviewDataList, this.type);
         } else {
           this.fetchedDataState = 'no data';
         }
@@ -65,6 +81,7 @@ export class ReviewComponent implements OnInit {
           this.total = this.reviewDataList.length;
           this.currentReviewData = this.reviewDataList[this.currentIndex];
           this.fetchedDataState = 'loaded';
+          this.openDialog(this.reviewDataList, this.type);
         } else {
           this.fetchedDataState = 'no data';
         }
@@ -81,32 +98,4 @@ export class ReviewComponent implements OnInit {
       this.getReviewData(event);
     }
   }
-
-  setDifficulty(updatedDifficulty: Difficulty) {
-    this.updateExpressionDifficulty(updatedDifficulty);
-    if (this.currentIndex < this.total - 1) {
-      this.currentIndex += 1;
-      this.currentReviewData = this.reviewDataList[this.currentIndex];
-    } else {
-      console.log('finished')
-    }
-  }
-
-  updateExpressionDifficulty(updatedDifficulty: Difficulty) {
-    const updateExpression: UpdateExpressionDto = { difficulty: updatedDifficulty };
-    if (this.type === 'expression') {
-      this.expressionsService.update(this.currentReviewData._id, updateExpression).subscribe(res => {
-        //this.snackBar.open('Difficulty will be updated', 'OK', { duration: 3000 })
-      }, err => {
-        if (!this.wasFirstSnackShown) {
-          this.snackBar.open(`Difficulty won't be updated`, err.error.message, { duration: 3000 })
-          this.wasFirstSnackShown = true;
-        }
-      })
-    } else if (this.type === 'user-kanji'){
-      console.log('update user kanji')
-    }
-
-  }
-
 }

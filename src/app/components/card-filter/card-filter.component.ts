@@ -36,7 +36,7 @@ export class CardFilterComponent implements OnInit {
 
   sendFilter() {
     const filter = this.cardFilterService.generateFilter(this.filterForm.value);
-    this.panelOpenState = false;
+    //this.panelOpenState = false;
     this.filter.emit(filter);
   }
 

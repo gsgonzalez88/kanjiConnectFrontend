@@ -23,7 +23,8 @@ export class ExpressionCardService {
         exampleSentences: data.exampleSentences.map(e => e.sentence),
         transitivity: data.transitivity,
         jlpt: data.jlpt,
-        difficulty: data.difficulty
+        difficulty: data.difficulty,
+        _id: data._id
       }
       return expressionCard;
     } else {
@@ -36,7 +37,8 @@ export class ExpressionCardService {
         meanings: data.kanji.meanings,
         expressions: data.expressions.map(e => ({ word: e.word, reading: e.reading })),
         jlpt: data.kanji.jlpt,
-        difficulty: data.difficulty
+        difficulty: data.difficulty,
+        _id: data._id
       }
       return userKanjiCard;
     }

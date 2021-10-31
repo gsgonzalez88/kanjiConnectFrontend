@@ -53,6 +53,7 @@ import { DifficultySelectComponent } from './elements/selects/difficulty-select/
 import { SourceSelectComponent } from './elements/selects/source-select/source-select.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { DifficultyButtonsComponent } from './components/difficulty-buttons/difficulty-buttons.component';
+import { ReviewCardPopupComponent } from './components/review-card-popup/review-card-popup.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +90,8 @@ import { DifficultyButtonsComponent } from './components/difficulty-buttons/diff
     DifficultySelectComponent,
     SourceSelectComponent,
     FooterComponent,
-    DifficultyButtonsComponent
+    DifficultyButtonsComponent,
+    ReviewCardPopupComponent
   ],
   imports: [
     BrowserModule,
