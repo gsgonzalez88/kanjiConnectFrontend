@@ -1,5 +1,6 @@
 <!--CARD FRONT-->
 <div *ngIf="cardFlipState === 'front'" class="card front">
+  <mat-icon class="popup-close-button" (click)="close()">close</mat-icon>
   <app-review-counter [total]="total" [currentIndex]="currentIndex" [fetchedDataState]="'loaded'"></app-review-counter>
   <h3>{{ cardData.main }}</h3>
   <div>
@@ -13,27 +14,32 @@
 </div>
 <!--CARD REVERSE-->
 <div *ngIf="cardFlipState === 'back'" class="card back">
+  <mat-icon class="popup-close-button" (click)="close()">close</mat-icon>
   <h4>{{ cardData.main }}</h4>
   <!-- EXPRESSION -->
   <div *ngIf="type === 'expression'" class="card-detail">
-    <p><span class="section-text">Reading: </span>{{ (cardData | expressionCast).reading }}</p>
-    <ul>
+    <p>
+      <span class="section-text">Reading: </span>
+      <span class="reading">{{ (cardData | expressionCast).reading }}</span>
+    </p>
+    <ul class="card-list">
       <li class="section-text">Meaning:</li>
       <li *ngFor="let englishMeaning of (cardData | expressionCast).englishMeaning">
-        {{ englishMeaning}}
+        <span class="bullet">●</span>{{ englishMeaning | firstTitlecase }}
       </li>
       <li *ngFor="let japaneseMeaning of (cardData | expressionCast).japaneseMeaning">
-        {{ japaneseMeaning}}
+        <span class="bullet">●</span>{{ japaneseMeaning}}
       </li>
     </ul>
-    <ul>
+    <ul class="card-list">
       <li class="section-text">Example Sentences:</li>
       <li *ngFor="let sentence of (cardData | expressionCast).exampleSentences">
-        {{ sentence }}
+        <span class="bullet">●</span>{{ sentence }}
       </li>
     </ul>
     <p *ngIf="(cardData | expressionCast).transitivity">
-      <span class="section-text">Transitivity: </span>{{ (cardData | expressionCast).transitivity }}
+      <span class="section-text">Transitivity: </span>
+        {{ (cardData | expressionCast).transitivity | firstTitlecase }}
     </p>
   </div>
   <!-- USER-KANJI -->
@@ -41,7 +47,7 @@
     <p><span class="section-text">Kun readings:</span> {{ (cardData | userKanjiCast).kunReadings }}</p>
     <p><span class="section-text">On readings:</span> {{ (cardData | userKanjiCast).onReadings }}</p>
     <p><span class="section-text">Meanings:</span> {{ (cardData | userKanjiCast).meanings }}</p>
-    <ul>
+    <ul class="card-list">
       <li class="section-text">Expressions:</li>
       <li *ngFor="let expression of (cardData | userKanjiCast).expressions">
         {{expression.word}} ({{expression.reading}})

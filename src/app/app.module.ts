@@ -54,6 +54,7 @@ import { SourceSelectComponent } from './elements/selects/source-select/source-s
 import { FooterComponent } from './components/footer/footer.component';
 import { DifficultyButtonsComponent } from './components/difficulty-buttons/difficulty-buttons.component';
 import { ReviewCardPopupComponent } from './components/review-card-popup/review-card-popup.component';
+import { FirstTitlecasePipe } from './pipes/first-titlecase.pipe';
 
 @NgModule({
   declarations: [
@@ -91,7 +92,8 @@ import { ReviewCardPopupComponent } from './components/review-card-popup/review-
     SourceSelectComponent,
     FooterComponent,
     DifficultyButtonsComponent,
-    ReviewCardPopupComponent
+    ReviewCardPopupComponent,
+    FirstTitlecasePipe
   ],
   imports: [
     BrowserModule,

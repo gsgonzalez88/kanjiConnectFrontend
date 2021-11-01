@@ -45,10 +45,6 @@ export class ReviewComponent implements OnInit {
       height: '80vh',
       data: { reviewData, type }
     });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
   }
 
   getTags() {

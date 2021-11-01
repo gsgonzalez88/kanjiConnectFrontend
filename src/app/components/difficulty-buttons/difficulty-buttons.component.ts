@@ -17,19 +17,26 @@ export class DifficultyButtonsComponent implements OnInit {
   }
 
   updateDifficulty(cardDifficulty: CardDifficultyLevel) {
-    let newDifficulty: Difficulty | null = null;
-    if (cardDifficulty === 'easy' && this.difficulty !== null && this.difficulty > 1) {
-      newDifficulty = this.difficulty === 1
-       ? 0
-       : this.difficulty - 2 as Difficulty;
-    } else if (cardDifficulty === 'OK' && this.difficulty !== null && this.difficulty > 0) {
-      newDifficulty = this.difficulty - 1 as Difficulty;
-    } else if (cardDifficulty === 'hard' && this.difficulty !== null && this.difficulty < 10) {
-      newDifficulty = this.difficulty + 1 as Difficulty;
+    let newRawDifficulty: number | null = null;
+    if (cardDifficulty === 'easy' && this.difficulty !== null) {
+      newRawDifficulty =  this.difficulty - 2;
+    } else if (cardDifficulty === 'OK' && this.difficulty !== null) {
+      newRawDifficulty = this.difficulty - 1;
+    } else if (cardDifficulty === 'hard' && this.difficulty !== null) {
+      newRawDifficulty = this.difficulty + 1;
     }
 
-    if (newDifficulty !== null) {
-      this.updatedDifficulty.emit(newDifficulty);
+    let newCastDifficulty: Difficulty | null = null;
+    if (newRawDifficulty !== null && newRawDifficulty >= 0 && newRawDifficulty <= 10) {
+      newCastDifficulty = newRawDifficulty as Difficulty;
+    } else if (newRawDifficulty !== null && newRawDifficulty < 0) {
+      newCastDifficulty = 0;
+    } else if (newRawDifficulty !== null && newRawDifficulty > 10) {
+      newCastDifficulty = 10;
+    }
+
+    if (newCastDifficulty !== null) {
+      this.updatedDifficulty.emit(newCastDifficulty);
     } else {
       this.snackBar.open('Invalid difficulty', 'Error', { duration: 3000 });
     }

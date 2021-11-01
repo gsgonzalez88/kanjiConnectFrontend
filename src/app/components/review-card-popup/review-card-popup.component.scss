@@ -1,4 +1,5 @@
 .card {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,6 +23,7 @@
 
 .back{
   .card-detail{
+    width: 100%;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -29,8 +31,18 @@
     p {
       margin: 0 !important;
     }
+    .reading{
+      font-weight: bold;
+    }
+    .card-list{
+      .bullet{
+        color: var(--main-color);
+        padding-right: 0.3em;
+      }
+    }
   }
   .difficulty-section{
     text-align: center;
+    display: block;
   }
 }

@@ -45,6 +45,10 @@ export class ReviewCardPopupComponent implements OnInit {
     }
   }
 
+  close() {
+    this.dialogRef.close();
+  }
+
   updateDifficulty(updatedDifficulty: Difficulty) {
     const updateExpression: UpdateExpressionDto = { difficulty: updatedDifficulty };
     if (this.type === 'expression') {
