@@ -70,9 +70,12 @@
       </ng-container>
     </section>
     <!--LESSON-->
-    <div class="form-section-full">
-      <app-lessons-select formControlName="lesson"></app-lessons-select>
-    </div>
+    <section class="border" (click)="setFormActiveArea('lesson')"
+              [ngClass]="{ 'border-main': formActiveArea === 'lesson', 'border': formActiveArea !== 'lesson' }">
+      <div class="form-section-full">
+        <app-lessons-select formControlName="lesson"></app-lessons-select>
+      </div>
+    </section>
     <!--EXAMPLE SENTENCES-->
     <section formArrayName="exampleSentences">
       <ng-container *ngFor="let sentence of exampleSentences.controls; let i = index">

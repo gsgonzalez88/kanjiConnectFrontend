@@ -17,7 +17,7 @@ export class ExpressionFormComponent implements OnInit {
   public form = new FormGroup({});
   public externalExpressions: ExternalExpression[] = [];
   public currentExternalExpression: ExternalExpression = new ExternalExpressionInitializer();
-  public formActiveArea: 'expression' | 'englishMeaning' | 'japaneseMeaning' | 'exampleSentences' | 'none' = 'expression';
+  public formActiveArea: 'expression' | 'englishMeaning' | 'japaneseMeaning' | 'exampleSentences' | 'lesson' | 'none' = 'expression';
 
   @Output() formData = new EventEmitter();
 
@@ -32,7 +32,7 @@ export class ExpressionFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  setFormActiveArea(area: 'expression' | 'englishMeaning' | 'japaneseMeaning' | 'exampleSentences' | 'none') {
+  setFormActiveArea(area: 'expression' | 'englishMeaning' | 'japaneseMeaning' | 'exampleSentences' | 'lesson' | 'none') {
     this.formActiveArea = area;
   }
 

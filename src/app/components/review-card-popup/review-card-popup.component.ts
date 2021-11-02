@@ -35,7 +35,7 @@ export class ReviewCardPopupComponent implements OnInit {
   }
 
   showCardFront() {
-    if (this.currentIndex < this.total - 1) {
+    if (this.currentIndex < this.total) {
       const currentReviewData = this.data.reviewData[this.currentIndex];
       this.cardData = this.expressionCardService.generateCardData(this.type, currentReviewData);
       this.cardFlipState = 'front';
