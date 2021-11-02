@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { emptyLesson, Lesson, loadingLesson } from '../models/lesson.model';
+import { AuthService } from './auth.service';
 
 
 @Injectable({
@@ -13,7 +14,8 @@ export class LessonsService {
   private lessons = new BehaviorSubject<Lesson[]>([loadingLesson]);
   lessons$ = this.lessons.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private authService: AuthService) { }
 
   getLessonsByUser(user: string) {
     return this.http.get<Lesson[]>(environment.lessons + '/user/' + user);

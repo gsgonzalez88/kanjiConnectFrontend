@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialogRef } from '@angular/material/dialog';
+import { SpinnerService } from '../spinner/spinner.service';
 
 @Component({
   selector: 'app-login',
@@ -16,17 +17,21 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private snackBar: MatSnackBar,
-              private dialogRef: MatDialogRef<LoginComponent>) { }
+              private dialogRef: MatDialogRef<LoginComponent>,
+              private spinner: SpinnerService) { }
 
   ngOnInit(): void {
   }
 
   login() {
+    this.spinner.open();
     this.authService.login(this.email, this.password).subscribe(res => {
-      this.snackBar.open('Successfully logged in', 'OK', { duration: 3000 });
+      this.spinner.close();
+      this.snackBar.open('Successfully logged in', 'Welcome!', { duration: 3000 });
       this.dialogRef.close();
     }, err => {
-      this.snackBar.open(`Couldn't log in`, 'Error', { duration: 3000 });
+      this.spinner.close();
+      this.snackBar.open('Something went wrong', 'Try again', { duration: 3000 });
     })
   }
 

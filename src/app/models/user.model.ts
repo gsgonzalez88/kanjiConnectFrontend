@@ -1,7 +1,8 @@
 export interface User {
   email: string;
-  name: string;
+  username: string;
   password: string;
+  role: string;
   _id: string
 }
 
@@ -9,7 +10,8 @@ export interface CreateUserDto extends Omit<User, 'id'> {}
 
 export const emptyUser: User = {
   email: '',
-  name: '',
+  username: '',
   password: '',
+  role: '',
   _id: ''
 }
