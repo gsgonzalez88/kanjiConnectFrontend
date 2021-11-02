@@ -13,6 +13,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -55,6 +56,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { DifficultyButtonsComponent } from './components/difficulty-buttons/difficulty-buttons.component';
 import { ReviewCardPopupComponent } from './components/review-card-popup/review-card-popup.component';
 import { FirstTitlecasePipe } from './pipes/first-titlecase.pipe';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +95,8 @@ import { FirstTitlecasePipe } from './pipes/first-titlecase.pipe';
     FooterComponent,
     DifficultyButtonsComponent,
     ReviewCardPopupComponent,
-    FirstTitlecasePipe
+    FirstTitlecasePipe,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -112,7 +115,8 @@ import { FirstTitlecasePipe } from './pipes/first-titlecase.pipe';
     MatSnackBarModule,
     MatDividerModule,
     MatChipsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatProgressSpinnerModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: TimeInterceptor, multi: true

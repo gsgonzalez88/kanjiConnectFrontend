@@ -1,10 +1,12 @@
 import { FormGroup, FormBuilder, Validators, FormControl, FormArray, FormGroupDirective } from '@angular/forms';
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ExternalExpressionInitializer, FormExpressionDto } from './../../models/expression.model';
 import { ExpressionsService } from 'src/app/services/expressions.service';
 import { ExternalExpression } from 'src/app/models/expression.model';
 import { TagsService } from 'src/app/services/tags.service';
+import { SpinnerService } from '../spinner/spinner.service';
 
 @Component({
   selector: 'app-expression-form',
@@ -21,7 +23,9 @@ export class ExpressionFormComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private expressionsService: ExpressionsService,
-              private tagsService: TagsService) {
+              private tagsService: TagsService,
+              private spinner: SpinnerService,
+              private snackBar: MatSnackBar) {
     this.createForm();
   }
 
@@ -70,8 +74,10 @@ export class ExpressionFormComponent implements OnInit {
   }
 
   autocomplete() {
+    this.spinner.open();
     this.expressionsService.getExpressionExternalData(this.form.get('word')?.value).subscribe(
       res => {
+        this.spinner.close();
         this.externalExpressions = res;
         if (this.externalExpressions.length > 0) {
           this.currentExternalExpression = this.externalExpressions[0];
@@ -83,8 +89,11 @@ export class ExpressionFormComponent implements OnInit {
           this.addToFormArray('englishMeaning');
           this.form.get('jlpt')?.setValue(this.currentExternalExpression.jlpt)
           this.form.get('transitivity')?.setValue(this.currentExternalExpression.transitivity);
+        } else {
+          this.snackBar.open('Nothing found', 'Try another spelling', { duration: 4000 });
         }
       }, err => {
+        this.spinner.close();
         this.externalExpressions = [];
       })
   }

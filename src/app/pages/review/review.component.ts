@@ -12,6 +12,7 @@ import { FetchedDataState } from 'src/app/models/custom-types.model';
 import { UserKanji, UserKanjiFilter } from 'src/app/models/user-kanji.model';
 import { UserKanjiService } from 'src/app/services/user-kanji.service';
 import { MatDialog } from '@angular/material/dialog';
+import { SpinnerService } from 'src/app/components/spinner/spinner.service';
 
 @Component({
   selector: 'app-review',
@@ -24,7 +25,6 @@ export class ReviewComponent implements OnInit {
   public total: number = 0;
   public currentIndex: number = 0;
   public tags: Tag[] = [];
-  public fetchedDataState: FetchedDataState = 'init';
   public type: DataType = 'expression';
   private user = '61478fb9b2cfde16186509b5';
   private wasFirstSnackShown = false;
@@ -33,7 +33,8 @@ export class ReviewComponent implements OnInit {
               private userKanjiService: UserKanjiService,
               private tagsService: TagsService,
               private snackBar: MatSnackBar,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog,
+              private spinner: SpinnerService) { }
 
   ngOnInit(): void {
     this.getTags();
@@ -54,35 +55,35 @@ export class ReviewComponent implements OnInit {
   }
 
   getReviewData(json: FilterExpressionsDto | UserKanjiFilter) {
-    this.fetchedDataState = 'loading';
+    this.spinner.open();
     this.currentIndex = 0;
     if (this.type === 'expression') {
       this.expressionsService.filterExpressions(json).subscribe(res => {
+        this.spinner.close();
         if (res.length > 0) {
           this.reviewDataList = res;
           this.total = this.reviewDataList.length;
           this.currentReviewData = this.reviewDataList[this.currentIndex];
-          this.fetchedDataState = 'loaded';
           this.openDialog(this.reviewDataList, this.type);
         } else {
-          this.fetchedDataState = 'no data';
+          this.snackBar.open('No cards match the criteria', 'Try another filter', { duration: 4000 });
         }
       }, err => {
-        this.fetchedDataState = 'no data';
+        this.spinner.close();
       })
     } else if (this.type === 'user-kanji') {
       this.userKanjiService.filterUserKanji(json).subscribe(res => {
+        this.spinner.close();
         if (res.length > 0) {
           this.reviewDataList = res;
           this.total = this.reviewDataList.length;
           this.currentReviewData = this.reviewDataList[this.currentIndex];
-          this.fetchedDataState = 'loaded';
           this.openDialog(this.reviewDataList, this.type);
         } else {
-          this.fetchedDataState = 'no data';
+          this.snackBar.open('No cards match the criteria', 'Try another filter', { duration: 4000 })
         }
       }, err => {
-        this.fetchedDataState = 'no data';
+        this.spinner.close();
       })
     }
   }
