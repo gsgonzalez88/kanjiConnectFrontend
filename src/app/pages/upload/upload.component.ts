@@ -4,6 +4,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { FormExpressionDto } from 'src/app/models/expression.model';
 import { ExpressionsService } from 'src/app/services/expressions.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-upload',
@@ -11,12 +13,16 @@ import { ExpressionsService } from 'src/app/services/expressions.service';
   styleUrls: ['./upload.component.scss']
 })
 export class UploadComponent implements OnInit {
-  private user = '61478fb9b2cfde16186509b5';
+  private user = '';
 
   constructor(private snackBar: MatSnackBar,
-              private expressionsService: ExpressionsService) { }
+              private expressionsService: ExpressionsService,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.authService.user$.pipe(takeWhile(e => e._id.length === 0, true)).subscribe(
+      res => this.user = res._id
+    )
   }
 
   getFormData(formExpression: FormExpressionDto) {
@@ -28,6 +34,7 @@ export class UploadComponent implements OnInit {
       created: new Date(),
       updated: new Date()
     }
+    console.log(expressionToUpload)
     const token = localStorage.getItem('token');
     if (!token) {
       this.snackBar.open(`You're not logged in`, 'Error', { duration: 3000 });
