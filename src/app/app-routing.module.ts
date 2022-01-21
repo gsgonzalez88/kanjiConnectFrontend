@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ReviewComponent } from './pages/review/review.component';
-import { UploadComponent } from './pages/upload/upload.component';
+import { ReviewComponent } from './study/pages/review/review.component';
+import { UploadComponent } from './study/pages/upload/upload.component';
 
 const routes: Routes = [
   {
@@ -14,6 +14,9 @@ const routes: Routes = [
   }, {
     path: 'upload',
     component: UploadComponent
+  }, {
+    path: 'study',
+    loadChildren: () => import('./study/study.module').then(m => m.StudyModule)
   }
 ];
 

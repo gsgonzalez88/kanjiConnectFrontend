@@ -1,6 +1,6 @@
-import { TagsService } from 'src/app/services/tags.service';
+import { TagsService } from 'src/app/study/services/tags.service';
 import { Component, OnInit } from '@angular/core';
-import { LessonsService } from './services/lessons.service';
+import { LessonsService } from './study/services/lessons.service';
 
 @Component({
   selector: 'app-root',
