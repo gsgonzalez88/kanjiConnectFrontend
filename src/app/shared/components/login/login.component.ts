@@ -25,13 +25,15 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.spinner.open();
-    this.authService.login(this.email, this.password).subscribe(res => {
-      this.spinner.close();
-      this.snackBar.open('Successfully logged in', 'Welcome!', { duration: 3000 });
-      this.dialogRef.close();
-    }, err => {
-      this.spinner.close();
-      this.snackBar.open('Something went wrong', 'Try again', { duration: 3000 });
+    this.authService.login(this.email, this.password).subscribe({
+      next: () => {
+        this.spinner.close();
+        this.snackBar.open('Successfully logged in', 'Welcome!', { duration: 3000 });
+        this.dialogRef.close();
+      }, error: () => {
+        this.spinner.close();
+        this.snackBar.open('Something went wrong', 'Try again', { duration: 3000 });
+      }
     })
   }
 

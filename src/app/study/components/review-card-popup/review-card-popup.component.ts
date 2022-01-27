@@ -52,12 +52,14 @@ export class ReviewCardPopupComponent implements OnInit {
   updateDifficulty(updatedDifficulty: Difficulty) {
     const updateExpression: UpdateExpressionDto = { difficulty: updatedDifficulty };
     if (this.type === 'expression') {
-      this.expressionsService.update(this.cardData._id, updateExpression).subscribe(res => {
-        //this.snackBar.open('Difficulty will be updated', 'OK', { duration: 3000 })
-      }, err => {
-        if (!this.wasFirstSnackShown) {
-          this.snackBar.open(`Difficulty won't be updated`, err.error.message, { duration: 3000 })
-          this.wasFirstSnackShown = true;
+      this.expressionsService.update(this.cardData._id, updateExpression).subscribe({
+        next: res => {
+          //this.snackBar.open('Difficulty will be updated', 'OK', { duration: 3000 })
+        }, error: (err) => {
+          if (!this.wasFirstSnackShown) {
+            this.snackBar.open(`Difficulty won't be updated`, err.error.message, { duration: 3000 })
+            this.wasFirstSnackShown = true;
+          }
         }
       })
     } else if (this.type === 'user-kanji'){

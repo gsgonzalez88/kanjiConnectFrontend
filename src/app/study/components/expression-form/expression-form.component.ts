@@ -75,8 +75,8 @@ export class ExpressionFormComponent implements OnInit {
 
   autocomplete() {
     this.spinner.open();
-    this.expressionsService.getExpressionExternalData(this.form.get('word')?.value).subscribe(
-      res => {
+    this.expressionsService.getExpressionExternalData(this.form.get('word')?.value).subscribe({
+      next: (res) => {
         this.spinner.close();
         this.externalExpressions = res;
         if (this.externalExpressions.length > 0) {
@@ -92,10 +92,11 @@ export class ExpressionFormComponent implements OnInit {
         } else {
           this.snackBar.open('Nothing found', 'Try another spelling', { duration: 4000 });
         }
-      }, err => {
+      }, error: () => {
         this.spinner.close();
         this.externalExpressions = [];
-      })
+      }
+    })
   }
 
   async sendData() {

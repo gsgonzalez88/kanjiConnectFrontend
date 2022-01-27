@@ -58,32 +58,36 @@ export class ReviewComponent implements OnInit {
     this.spinner.open();
     this.currentIndex = 0;
     if (this.type === 'expression') {
-      this.expressionsService.filterExpressions(json).subscribe(res => {
-        this.spinner.close();
-        if (res.length > 0) {
-          this.reviewDataList = res;
-          this.total = this.reviewDataList.length;
-          this.currentReviewData = this.reviewDataList[this.currentIndex];
-          this.openDialog(this.reviewDataList, this.type);
-        } else {
-          this.snackBar.open('No cards match the criteria', 'Try another filter', { duration: 4000 });
+      this.expressionsService.filterExpressions(json).subscribe({
+        next: res => {
+          this.spinner.close();
+          if (res.length > 0) {
+            this.reviewDataList = res;
+            this.total = this.reviewDataList.length;
+            this.currentReviewData = this.reviewDataList[this.currentIndex];
+            this.openDialog(this.reviewDataList, this.type);
+          } else {
+            this.snackBar.open('No cards match the criteria', 'Try another filter', { duration: 4000 });
+          }
+        }, error: () => {
+          this.spinner.close();
         }
-      }, err => {
-        this.spinner.close();
       })
     } else if (this.type === 'user-kanji') {
-      this.userKanjiService.filterUserKanji(json).subscribe(res => {
-        this.spinner.close();
-        if (res.length > 0) {
-          this.reviewDataList = res;
-          this.total = this.reviewDataList.length;
-          this.currentReviewData = this.reviewDataList[this.currentIndex];
-          this.openDialog(this.reviewDataList, this.type);
-        } else {
-          this.snackBar.open('No cards match the criteria', 'Try another filter', { duration: 4000 })
+      this.userKanjiService.filterUserKanji(json).subscribe({
+        next: res => {
+          this.spinner.close();
+          if (res.length > 0) {
+            this.reviewDataList = res;
+            this.total = this.reviewDataList.length;
+            this.currentReviewData = this.reviewDataList[this.currentIndex];
+            this.openDialog(this.reviewDataList, this.type);
+          } else {
+            this.snackBar.open('No cards match the criteria', 'Try another filter', { duration: 4000 })
+          }
+        }, error: () => {
+          this.spinner.close();
         }
-      }, err => {
-        this.spinner.close();
       })
     }
   }

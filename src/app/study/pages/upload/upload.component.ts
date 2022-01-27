@@ -38,13 +38,13 @@ export class UploadComponent implements OnInit {
     if (!token) {
       this.snackBar.open(`You're not logged in`, 'Error', { duration: 3000 });
     } else {
-      this.expressionsService.create(expressionToUpload).subscribe(
-        res => {
+      this.expressionsService.create(expressionToUpload).subscribe({
+        next: res => {
           this.snackBar.open('Expression created', 'OK', { duration: 3000 });
-        }, err => {
+        }, error: err => {
           this.snackBar.open(`Expression couldn't be created`, err.error.message, { duration: 3000 });
         }
-      )
+      })
     }
   }
 }

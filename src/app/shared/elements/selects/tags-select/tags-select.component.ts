@@ -39,18 +39,20 @@ export class TagsSelectComponent implements OnInit, ControlValueAccessor, OnDest
   ngOnInit(): void {
     const tagsForm = this.form.controls['tags'] as FormGroup;
     this.tags$ = this.tagsService.tags$;
-    this.subscription = this.tags$.subscribe(res => {
-      this.fetchedDataState = res.length > 0 ? 'loaded' : 'no data'
-      res.forEach(tag => {
-        tagsForm.addControl(tag.name, new FormControl(false))
-      })
-      tagsForm.valueChanges.subscribe(res => {
-        this.onTouched();
-        this.onChange(res);
-      })
-    }, err => {
-      this.fetchedDataState = 'no data';
-    })
+    this.subscription = this.tags$.subscribe({
+      next: (res) => {
+        this.fetchedDataState = res.length > 0 ? 'loaded' : 'no data'
+        res.forEach(tag => {
+          tagsForm.addControl(tag.name, new FormControl(false))
+        })
+        tagsForm.valueChanges.subscribe(res => {
+          this.onTouched();
+          this.onChange(res);
+        })
+      }, error: () => {
+        this.fetchedDataState = 'no data';
+      }
+    } )
   }
 
   writeValue(obj: any): void {
