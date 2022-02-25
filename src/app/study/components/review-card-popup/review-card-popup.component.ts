@@ -34,28 +34,29 @@ export class ReviewCardPopupComponent implements OnInit {
     this.showCardFront()
   }
 
-  showCardFront() {
+  showCardFront(): void {
     if (this.currentIndex < this.total) {
       const currentReviewData = this.data.reviewData[this.currentIndex];
       this.cardData = this.expressionCardService.generateCardData(this.type, currentReviewData);
       this.cardFlipState = 'front';
       this.showHint = false;
-    } else {
+    } else {      
       this.dialogRef.close();
     }
   }
 
-  close() {
+  close(): void {
     this.dialogRef.close();
   }
 
-  updateDifficulty(updatedDifficulty: Difficulty) {
+  updateDifficulty(updatedDifficulty: Difficulty): void {
     const updateExpression: UpdateExpressionDto = { difficulty: updatedDifficulty };
     if (this.type === 'expression') {
       this.expressionsService.update(this.cardData._id, updateExpression).subscribe({
         next: res => {
           //this.snackBar.open('Difficulty will be updated', 'OK', { duration: 3000 })
         }, error: (err) => {
+          console.log(err)
           if (!this.wasFirstSnackShown) {
             this.snackBar.open(`Difficulty won't be updated`, err.error.message, { duration: 3000 })
             this.wasFirstSnackShown = true;
